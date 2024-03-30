@@ -4,6 +4,9 @@ module.exports = {
     slug: "openred-rn",
     extra: {
       clerkPublishableKey: process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY,
+      eas: {
+        projectId: "54286d4a-0604-4a0d-9af7-0a6631766a61",
+      },
     },
     version: "1.0.0",
     orientation: "portrait",
