@@ -25,7 +25,7 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         tabBarLabelStyle: {
-          fontFamily: "MonserratSemiBold",
+          fontFamily: "MontserratSemiBold",
           fontSize: 12,
         },
         // Disable the static render of the header on web
@@ -33,7 +33,7 @@ export default function TabLayout() {
         headerShown: useClientOnlyValue(false, true),
       }}
     >
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="index"
         options={{
           title: "Tab One",
@@ -55,27 +55,41 @@ export default function TabLayout() {
             </Link>
           ),
         }}
-      />
+      /> */}
       <Tabs.Screen
-        name="two"
-        options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color, size }) => (
-            <TabBarIcon name="code" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
+        name="index"
         options={{
           title: "Explore",
           tabBarIcon: ({ color, size }) => (
             <Ionicons
-              name="search"
+              name="search-outline"
               style={{ marginBottom: -3 }}
               color={color}
               size={size}
             />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="valuation"
+        options={{
+          title: "Valuation",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons
+              name="analytics-outline"
+              style={{ marginBottom: -3 }}
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="aichat"
+        options={{
+          title: "AI Chat",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="chatbox-outline" color={color} size={size} />
           ),
         }}
       />

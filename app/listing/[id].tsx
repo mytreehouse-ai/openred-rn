@@ -1,15 +1,250 @@
-import { View, Text } from "react-native";
-import React from "react";
-import { useLocalSearchParams } from "expo-router";
+import { Dimensions, Share, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useLayoutEffect } from "react";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import Animated, {
+  SlideInDown,
+  interpolate,
+  useAnimatedRef,
+  useAnimatedStyle,
+  useScrollViewOffset,
+} from "react-native-reanimated";
+import Markdown from "react-native-markdown-display";
+import { Text, View } from "@/components/Themed";
+import { propertyListings } from "@/assets/data/propertyListings";
+import { Listing } from "@/interfaces/listing";
+import { defaultStyle } from "@/constants/Styles";
+import Colors from "@/constants/Colors";
+import Ionicons from "@expo/vector-icons/Ionicons";
+
+const IMAGE_HEIGHT = 300;
+const { width } = Dimensions.get("window");
+const PROPERTY_IMAGE_PLACEHOLDER =
+  "https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
 const Page = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const navigation = useNavigation();
+  const listing: Listing = propertyListings.find(
+    (item) => item.id === Number(id)
+  ) as Listing;
+  const scrollRef = useAnimatedRef<Animated.ScrollView>();
+
+  const scrollOffset = useScrollViewOffset(scrollRef);
+
+  const imageAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: interpolate(
+            scrollOffset.value,
+            [-IMAGE_HEIGHT, 0, IMAGE_HEIGHT],
+            [-IMAGE_HEIGHT / 2, 0, IMAGE_HEIGHT * 0.75]
+          ),
+        },
+        {
+          scale: interpolate(
+            scrollOffset.value,
+            [-IMAGE_HEIGHT, 0, IMAGE_HEIGHT],
+            [2, 1, 1]
+          ),
+        },
+      ],
+    };
+  });
+
+  const shareListing = async () => {
+    try {
+      await Share.share({
+        message: `Check out this listing on Rentalz: ${listing.listing_url}`,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const headerAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(scrollOffset.value, [0, IMAGE_HEIGHT / 1.5], [0, 1]),
+    };
+  });
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerBackground: () => (
+        <Animated.View style={[headerAnimatedStyle, styles.header]} />
+      ),
+      headerRight: () => (
+        <View style={styles.bar}>
+          <TouchableOpacity style={styles.barRoundBtn} onPress={shareListing}>
+            <Ionicons name="share-outline" size={22} color={Colors.gray900} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.barRoundBtn}>
+            <Ionicons name="heart-outline" size={22} color={Colors.gray900} />
+          </TouchableOpacity>
+        </View>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          style={styles.barRoundBtn}
+          onPress={navigation.goBack}
+        >
+          <Ionicons name="arrow-back" size={22} color={Colors.gray900} />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
 
   return (
-    <View>
-      <Text>{id}</Text>
+    <View style={styles.container}>
+      <Animated.ScrollView
+        ref={scrollRef}
+        contentContainerStyle={{ paddingBottom: 100 }}
+        scrollEventThrottle={16}
+      >
+        <Animated.Image
+          source={{
+            uri: listing.estate.image_url ?? PROPERTY_IMAGE_PLACEHOLDER,
+          }}
+          style={[styles.image, imageAnimatedStyle]}
+        />
+        <View style={{ padding: 16, gap: 8 }}>
+          <Text
+            style={{
+              fontFamily: "MontserratBold",
+              fontSize: 18,
+            }}
+          >
+            {listing.listing_title}
+          </Text>
+          <Text
+            style={{
+              fontFamily: "MontserratSemiBold",
+              fontSize: 14,
+            }}
+          >
+            {listing.estate.address || listing.estate.city.name}
+          </Text>
+          <Markdown
+            style={{
+              body: {
+                fontFamily: "Montserrat",
+                fontSize: 12, // Reduced font size for body
+              },
+              heading1: {
+                fontFamily: "MontserratBold",
+                fontSize: 15,
+                marginBottom: 4,
+              },
+              heading2: {
+                fontFamily: "MontserratSemiBold",
+                fontSize: 14,
+                marginBottom: 4,
+              },
+              heading3: {
+                fontFamily: "MontserratSemiBold",
+                fontSize: 12.6,
+                marginBottom: 4,
+              },
+              heading4: {
+                fontFamily: "MontserratSemiBold",
+                fontSize: 11.2,
+                marginBottom: 4,
+              },
+              heading5: {
+                fontFamily: "MontserratSemiBold",
+                fontSize: 9.8,
+                marginBottom: 4,
+              },
+              heading6: {
+                fontFamily: "MontserratSemiBold",
+                fontSize: 8.4,
+                marginBottom: 4,
+              },
+            }}
+          >
+            {listing.estate.markdown || listing.estate.description}
+          </Markdown>
+        </View>
+      </Animated.ScrollView>
+      <Animated.View
+        style={defaultStyle.footer}
+        entering={SlideInDown.delay(200)}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "column",
+              alignItems: "flex-start",
+              gap: 5,
+            }}
+          >
+            <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}>
+              {listing.price_formatted}
+            </Text>
+            <View style={{ alignSelf: "flex-start" }}>
+              <Text
+                style={{
+                  fontFamily: "MontserratSemiBold",
+                  fontSize: 12,
+                  padding: 6,
+                  borderRadius: 5,
+                  borderWidth: StyleSheet.hairlineWidth,
+                }}
+              >
+                {listing.listing_type.description}
+              </Text>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={[defaultStyle.btn, { paddingHorizontal: 20 }]}
+          >
+            <Text style={defaultStyle.btnText}>Inquire now</Text>
+          </TouchableOpacity>
+        </View>
+      </Animated.View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  header: {
+    backgroundColor: "#fff",
+    height: 100,
+    borderBottomColor: Colors.gray500,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  image: {
+    height: IMAGE_HEIGHT,
+    width,
+  },
+  bar: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    gap: 10,
+  },
+  barRoundBtn: {
+    width: 40,
+    height: 40,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: 20,
+    borderColor: Colors.gray500,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    color: Colors.primary,
+  },
+});
 
 export default Page;

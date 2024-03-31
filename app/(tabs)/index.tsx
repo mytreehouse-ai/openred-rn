@@ -1,36 +1,30 @@
-import { StyleSheet } from "react-native";
+import { propertyListings } from "@/assets/data/propertyListings";
+import ExploreHeader from "@/components/ExploreHeader";
+import ListingsMap from "@/components/ListingsMap";
+import ListingsBottomSheets from "@/components/ListingsBottomSheets";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Stack } from "expo-router";
+import React, { useMemo, useState } from "react";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
+const Explore = () => {
+  const [propertyType, setPropertyType] = useState("Warehouse");
+  const listings = useMemo(() => propertyListings, []);
 
-export default function TabOneScreen() {
+  const onDataChange = (propertyType: string) => {
+    setPropertyType(propertyType);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack.Screen
+        options={{
+          header: () => <ExploreHeader onPropertyTypeChange={onDataChange} />,
+        }}
       />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+      <ListingsMap />
+      <ListingsBottomSheets propertyType={propertyType} listings={listings} />
+    </GestureHandlerRootView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontFamily: "MonserratSemiBold",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});
+export default Explore;

@@ -40,9 +40,9 @@ const tokenCache = {
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    Monserrat: require("@/assets/fonts/Montserrat-Regular.ttf"),
-    MonserratBold: require("@/assets/fonts/Montserrat-Bold.ttf"),
-    MonserratSemiBold: require("@/assets/fonts/Montserrat-SemiBold.ttf"),
+    Montserrat: require("@/assets/fonts/Montserrat-Regular.ttf"),
+    MontserratBold: require("@/assets/fonts/Montserrat-Bold.ttf"),
+    MontserratSemiBold: require("@/assets/fonts/Montserrat-SemiBold.ttf"),
     ...FontAwesome.font,
   });
 
@@ -85,15 +85,29 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+        <Stack.Screen
+          name="(tabs)"
+          options={{
+            headerTitle: "",
+            headerTransparent: true,
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="modal"
+          options={{
+            headerTitle: "Wala lang po",
+            headerTransparent: false,
+            presentation: "modal",
+          }}
+        />
         <Stack.Screen
           name="(modals)/login"
           options={{
             presentation: "modal",
             title: "Login or Sign up",
             headerTitleStyle: {
-              fontFamily: "MonserratSemiBold",
+              fontFamily: "MontserratSemiBold",
             },
             headerLeft: () => (
               <TouchableOpacity onPress={() => router.back()}>
@@ -102,7 +116,13 @@ function RootLayoutNav() {
             ),
           }}
         />
-        <Stack.Screen name="listing/[id]" options={{ headerTitle: "" }} />
+        <Stack.Screen
+          name="listing/[id]"
+          options={{
+            headerTitle: "",
+            headerTransparent: true,
+          }}
+        />
         <Stack.Screen
           name="(modals)/booking"
           options={{
@@ -110,7 +130,7 @@ function RootLayoutNav() {
             animation: "fade",
             title: "Booking",
             headerTitleStyle: {
-              fontFamily: "MonserratSemiBold",
+              fontFamily: "MontserratSemiBold",
             },
             headerLeft: () => (
               <TouchableOpacity onPress={() => router.back()}>

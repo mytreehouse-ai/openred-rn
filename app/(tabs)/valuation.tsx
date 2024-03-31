@@ -1,12 +1,12 @@
 import { Text, View } from "@/components/Themed";
 import React from "react";
 
-const Profile = () => {
+const Valuation = () => {
   return (
     <View style={{ flex: 1 }}>
-      <Text>Profile</Text>
+      <Text>Valuation</Text>
     </View>
   );
 };
 
-export default Profile;
+export default Valuation;

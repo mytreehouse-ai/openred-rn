@@ -14,9 +14,8 @@ enum Strategy {
 }
 
 const Login = () => {
-  const router = useRouter();
-
   useWarmUpBrowser();
+  const router = useRouter();
 
   const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
   const { startOAuthFlow: appleAuth } = useOAuth({ strategy: "oauth_apple" });
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   separator: {
-    fontFamily: "MonserratSemiBold",
+    fontFamily: "MontserratSemiBold",
     color: "#ababab",
   },
 });

@@ -15,12 +15,15 @@
   "dependencies": {
     "@clerk/clerk-expo": "^0.20.11",
     "@expo/vector-icons": "^14.0.0",
+    "@gorhom/bottom-sheet": "^4",
     "@react-navigation/native": "^6.0.2",
     "expo": "~50.0.14",
     "expo-auth-session": "~5.4.0",
     "expo-constants": "~15.4.5",
     "expo-font": "~11.10.3",
+    "expo-haptics": "~12.8.1",
     "expo-linking": "~6.2.2",
+    "expo-location": "~16.5.5",
     "expo-router": "~3.4.8",
     "expo-secure-store": "~12.8.1",
     "expo-splash-screen": "~0.26.4",
@@ -30,9 +33,15 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.73.6",
+    "react-native-gesture-handler": "~2.14.0",
+    "react-native-map-clustering": "^3.4.2",
+    "react-native-maps": "1.10.0",
+    "react-native-markdown-display": "^7.0.2",
+    "react-native-reanimated": "~3.6.2",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "3.29.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
