@@ -2,10 +2,11 @@ module.exports = {
   expo: {
     name: "openred-rn",
     slug: "openred-rn",
+    owner: "openred",
     extra: {
       clerkPublishableKey: process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY,
       eas: {
-        projectId: "54286d4a-0604-4a0d-9af7-0a6631766a61",
+        projectId: "62cce75b-0345-4c66-b8a6-7803734ced0e",
       },
     },
     version: "1.0.0",

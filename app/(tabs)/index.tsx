@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontFamily: "MonserratSemiBold",
+    fontFamily: "MontserratSemiBold",
     fontSize: 20,
     fontWeight: "bold",
   },

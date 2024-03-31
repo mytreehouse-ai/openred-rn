@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   getStartedText: {
-    fontFamily: "Monserrat",
+    fontFamily: "Montserrat",
     fontSize: 17,
     lineHeight: 24,
     textAlign: "center",
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   helpLinkText: {
-    fontFamily: "Monserrat",
+    fontFamily: "Montserrat",
     textAlign: "center",
   },
 });

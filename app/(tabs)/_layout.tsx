@@ -25,7 +25,7 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         tabBarLabelStyle: {
-          fontFamily: "MonserratSemiBold",
+          fontFamily: "MontserratSemiBold",
           fontSize: 12,
         },
         // Disable the static render of the header on web
@@ -71,7 +71,21 @@ export default function TabLayout() {
           title: "Explore",
           tabBarIcon: ({ color, size }) => (
             <Ionicons
-              name="search"
+              name="search-outline"
+              style={{ marginBottom: -3 }}
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="valuation"
+        options={{
+          title: "Valuation",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons
+              name="analytics-outline"
               style={{ marginBottom: -3 }}
               color={color}
               size={size}

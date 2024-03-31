@@ -3,7 +3,7 @@ import React from "react";
 
 const Wishlist = () => {
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Text>Wishlist</Text>
     </View>
   );

@@ -33,12 +33,12 @@ export const defaultStyle = StyleSheet.create({
   },
   btnText: {
     color: "#fff",
-    fontFamily: "MonserratSemiBold",
+    fontFamily: "MontserratSemiBold",
     fontSize: 16,
   },
   btnOutlineText: {
     color: "#000",
-    fontFamily: "MonserratSemiBold",
+    fontFamily: "MontserratSemiBold",
     fontSize: 16,
   },
   btnIconLeft: {
@@ -48,5 +48,17 @@ export const defaultStyle = StyleSheet.create({
   btnIconRight: {
     position: "absolute",
     right: 16,
+  },
+  footer: {
+    position: "absolute",
+    height: 100,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "#fff",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderTopColor: Colors.gray200,
+    borderTopWidth: StyleSheet.hairlineWidth,
   },
 });
