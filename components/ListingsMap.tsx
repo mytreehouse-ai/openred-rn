@@ -1,14 +1,14 @@
 import React from "react";
-import { Text, View } from "./Themed";
-import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { View } from "./Themed";
+import { PROVIDER_GOOGLE } from "react-native-maps";
 import MapView from "react-native-map-clustering";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { defaultStyle } from "@/constants/Styles";
 import { propertyListings } from "@/assets/data/propertyListings";
 import { useRouter } from "expo-router";
-import Colors from "@/constants/Colors";
+import CustomMapMarker from "./CustomMapMarker";
 
-const ListingMap = () => {
+const ListingsMap = () => {
   const router = useRouter();
 
   return (
@@ -17,9 +17,13 @@ const ListingMap = () => {
         animationEnabled={false}
         style={StyleSheet.absoluteFill}
         provider={PROVIDER_GOOGLE}
-        showsUserLocation
-        showsMyLocationButton
+        zoomEnabled={true}
+        zoomTapEnabled={false}
+        showsUserLocation={true}
+        showsMyLocationButton={true}
         clusterFontFamily="MontserratSemiBold"
+        minZoomLevel={10}
+        maxZoomLevel={20}
         initialRegion={{
           latitude: 14.5995,
           longitude: 120.9842,
@@ -28,23 +32,18 @@ const ListingMap = () => {
         }}
       >
         {propertyListings.map((l) => (
-          <Marker
+          <CustomMapMarker
             key={l.id}
+            id={String(l.id)}
+            price={l.price_formatted}
+            listingType={l.listing_type.description}
+            propertyType={l.property_type.description}
             coordinate={{
               latitude: l.estate.latitude,
               longitude: l.estate.longitude,
             }}
             onPress={() => router.push(`/listing/${l.id}`)}
-          >
-            <View style={styles.marker}>
-              <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 10 }}>
-                {l.listing_type.description}
-              </Text>
-              <Text style={{ fontFamily: "MontserratBold", fontSize: 12 }}>
-                {l.price_formatted}
-              </Text>
-            </View>
-          </Marker>
+          />
         ))}
       </MapView>
     </View>
@@ -53,11 +52,6 @@ const ListingMap = () => {
 
 const styles = StyleSheet.create({
   map: {},
-  marker: {
-    padding: 6,
-    borderRadius: 10,
-    backgroundColor: Colors.gray100,
-  },
 });
 
-export default ListingMap;
+export default ListingsMap;

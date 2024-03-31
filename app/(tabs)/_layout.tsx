@@ -33,7 +33,7 @@ export default function TabLayout() {
         headerShown: useClientOnlyValue(false, true),
       }}
     >
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="index"
         options={{
           title: "Tab One",
@@ -55,18 +55,9 @@ export default function TabLayout() {
             </Link>
           ),
         }}
-      />
+      /> */}
       <Tabs.Screen
-        name="two"
-        options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color, size }) => (
-            <TabBarIcon name="code" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
+        name="index"
         options={{
           title: "Explore",
           tabBarIcon: ({ color, size }) => (
@@ -90,6 +81,15 @@ export default function TabLayout() {
               color={color}
               size={size}
             />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="aichat"
+        options={{
+          title: "AI Chat",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="chatbox-outline" color={color} size={size} />
           ),
         }}
       />

@@ -22,7 +22,7 @@ interface ListingsProps {
 const PROPERTY_IMAGE_PLACEHOLDER =
   "https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
-const Listings = ({ propertyType, listings }: ListingsProps) => {
+const Listings: React.FC<ListingsProps> = ({ propertyType, listings }) => {
   const [loading, setLoading] = useState(false);
   const listRef = useRef<FlatList>(null);
   const items = listings.filter(
@@ -86,7 +86,6 @@ const Listings = ({ propertyType, listings }: ListingsProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.gray50,
   },
   listing: {
     padding: 16,
