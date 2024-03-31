@@ -1,5 +1,6 @@
 import { propertyListings } from "@/assets/data/propertyListings";
 import ExploreHeader from "@/components/ExploreHeader";
+import ListingMap from "@/components/ListingMap";
 import Listings from "@/components/Listings";
 import { View } from "@/components/Themed";
 import { Stack } from "expo-router";
@@ -19,7 +20,8 @@ const Explore = () => {
           header: () => <ExploreHeader onPropertyTypeChange={onDataChange} />,
         }}
       />
-      <Listings propertyType={propertyType} listings={propertyListings} />
+      {/* <Listings propertyType={propertyType} listings={propertyListings} /> */}
+      <ListingMap />
     </View>
   );
 };
