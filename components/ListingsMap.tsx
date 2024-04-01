@@ -8,7 +8,7 @@ import { propertyListings } from "@/assets/data/propertyListings";
 import { useRouter } from "expo-router";
 import CustomMapMarker from "./CustomMapMarker";
 import { useColorScheme } from "../hooks/useColorScheme";
-import { mapDarkModeStyle } from "@/constants/MapDarkModeStyle";
+import { mapDarkModeStyle } from "@/constants/MapStyle";
 
 const ListingsMap = () => {
   const router = useRouter();
