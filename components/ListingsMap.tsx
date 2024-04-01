@@ -22,11 +22,11 @@ const ListingsMap = () => {
         showsUserLocation={true}
         showsMyLocationButton={true}
         clusterFontFamily="MontserratSemiBold"
-        minZoomLevel={10}
+        minZoomLevel={6}
         maxZoomLevel={20}
         initialRegion={{
-          latitude: 14.5995,
-          longitude: 120.9842,
+          latitude: 14.5547,
+          longitude: 121.0244,
           latitudeDelta: 0.005,
           longitudeDelta: 0.005,
         }}
@@ -38,6 +38,7 @@ const ListingsMap = () => {
             price={l.price_formatted}
             listingType={l.listing_type.description}
             propertyType={l.property_type.description}
+            city={l.estate.city.name}
             coordinate={{
               latitude: l.estate.latitude,
               longitude: l.estate.longitude,

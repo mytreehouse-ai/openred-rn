@@ -9,6 +9,7 @@ interface CustomMapMarkerProps {
   price: string;
   listingType: string;
   propertyType: string;
+  city: string;
   coordinate: {
     latitude: number;
     longitude: number;
@@ -21,6 +22,7 @@ const CustomMapMarker: React.FC<CustomMapMarkerProps> = ({
   price,
   listingType,
   propertyType,
+  city,
   coordinate,
   onPress,
 }) => (
@@ -31,7 +33,12 @@ const CustomMapMarker: React.FC<CustomMapMarkerProps> = ({
     onPress={onPress}
   >
     <View style={styles.marker}>
-      <Text style={styles.markerText}>{price}</Text>
+      <View
+        style={{ flexDirection: "row", gap: 2, backgroundColor: "transparent" }}
+      >
+        <Text style={styles.markerText}>{price}</Text>
+        <Text style={styles.markerText}>{city}</Text>
+      </View>
       <Text style={styles.markerText}>
         {listingType} {propertyType}
       </Text>
