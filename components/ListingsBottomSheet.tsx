@@ -7,12 +7,12 @@ import Colors from "@/constants/Colors";
 import { Platform, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-interface ListingsBottomSheetsProps {
+interface ListingsBottomSheetsProp {
   propertyType: string;
   listings: Listing[];
 }
 
-const ListingsBottomSheets: React.FC<ListingsBottomSheetsProps> = ({
+const ListingsBottomSheet: React.FC<ListingsBottomSheetsProp> = ({
   propertyType,
   listings,
 }) => {
@@ -83,4 +83,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListingsBottomSheets;
+export default ListingsBottomSheet;

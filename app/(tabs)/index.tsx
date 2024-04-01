@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { propertyListings } from "@/assets/data/propertyListings";
 import ExploreHeader from "@/components/ExploreHeader";
 import ListingsMap from "@/components/ListingsMap";
-import ListingsBottomSheets from "@/components/ListingsBottomSheets";
+import ListingsBottomSheet from "@/components/ListingsBottomSheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Stack } from "expo-router";
 import { defaultStyle } from "@/constants/Styles";
@@ -22,7 +22,7 @@ const Explore = () => {
         }}
       />
       <ListingsMap />
-      <ListingsBottomSheets
+      <ListingsBottomSheet
         propertyType={propertyType}
         listings={propertyListings}
       />
