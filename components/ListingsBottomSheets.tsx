@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { Text, View } from "./Themed";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { Listing } from "@/interfaces/listing";
@@ -17,7 +17,13 @@ const ListingsBottomSheets: React.FC<ListingsBottomSheetsProps> = ({
   listings,
 }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["10%", "99%"], []);
+  const snapPoints = useMemo(() => ["9%", "99%"], []);
+  const [refresh, setRefresh] = useState(0);
+
+  const handleOnCollapse = () => {
+    bottomSheetRef.current?.collapse();
+    setRefresh(refresh + 1);
+  };
 
   return (
     <BottomSheet
@@ -28,12 +34,13 @@ const ListingsBottomSheets: React.FC<ListingsBottomSheetsProps> = ({
       handleIndicatorStyle={{ backgroundColor: Colors.gray900 }}
       style={styles.sheetContainer}
     >
-      <Listings propertyType={propertyType} listings={listings} />
+      <Listings
+        propertyType={propertyType}
+        listings={listings}
+        refresh={refresh}
+      />
       <View style={styles.absoluteBtn}>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => bottomSheetRef.current?.collapse()}
-        >
+        <TouchableOpacity style={styles.btn} onPress={handleOnCollapse}>
           <Text style={{ fontFamily: "MontserratSemiBold", color: "#fff" }}>
             Map
           </Text>

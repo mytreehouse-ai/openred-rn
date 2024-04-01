@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { useColorScheme } from "@/components/useColorScheme";
 import { TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,6 +47,8 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
+  const queryClient = new QueryClient();
+
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
@@ -66,7 +69,9 @@ export default function RootLayout() {
       publishableKey={Constants.expoConfig?.extra?.clerkPublishableKey ?? ""}
       tokenCache={tokenCache}
     >
-      <RootLayoutNav />
+      <QueryClientProvider client={queryClient}>
+        <RootLayoutNav />
+      </QueryClientProvider>
     </ClerkProvider>
   );
 }

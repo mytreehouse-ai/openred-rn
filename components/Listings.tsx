@@ -1,6 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState, memo } from "react";
+import React, { useEffect, useRef, useState, memo } from "react";
 import {
-  FlatList,
   Image,
   ListRenderItem,
   Platform,
@@ -13,28 +12,38 @@ import { Link } from "expo-router";
 import { Text, View } from "./Themed";
 import { Listing } from "@/interfaces/listing";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import {
+  BottomSheetFlatList,
+  BottomSheetFlatListMethods,
+} from "@gorhom/bottom-sheet";
+import { useTodosQuery } from "@/hooks/useTodosQuery";
 
 interface ListingsProps {
   propertyType: string;
   listings: Listing[];
+  refresh: number;
 }
 
 const PROPERTY_IMAGE_PLACEHOLDER =
   "https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
-const Listings: React.FC<ListingsProps> = ({ propertyType, listings }) => {
-  const [loading, setLoading] = useState(false);
-  const listRef = useRef<FlatList>(null);
+const Listings: React.FC<ListingsProps> = ({
+  propertyType,
+  listings,
+  refresh,
+}) => {
+  const listRef = useRef<BottomSheetFlatListMethods>(null);
   const items = listings.filter(
     (l) => l.property_type.description === propertyType
   );
 
+  const { isLoading, data } = useTodosQuery();
+
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 200);
-  }, [propertyType]);
+    if (refresh) {
+      listRef.current?.scrollToOffset({ offset: 0, animated: true });
+    }
+  }, [refresh]);
 
   const Row = memo(
     ({ item }: { item: Listing }) => (
@@ -72,12 +81,19 @@ const Listings: React.FC<ListingsProps> = ({ propertyType, listings }) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
+      <BottomSheetFlatList
         ref={listRef}
-        data={loading ? [] : items}
+        data={isLoading ? [] : items}
         initialNumToRender={5}
         renderItem={renderRow}
         keyExtractor={(item) => item.id.toString()}
+        ListHeaderComponent={
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ fontFamily: "MontserratSemiBold" }}>
+              {listings.length} {propertyType}
+            </Text>
+          </View>
+        }
       />
     </View>
   );
