@@ -119,21 +119,57 @@ const Listings: React.FC<ListingsProps> = ({
               position: "absolute",
               left: 30,
               top: 30,
-              backgroundColor: Colors.primary,
-              padding: 5,
-              borderRadius: 5,
+              flexDirection: "row",
+              gap: 5,
+              backgroundColor: "transparent",
             }}
           >
-            <Text
+            <View
               style={{
-                fontFamily: "MontserratBold",
-                fontSize: 16,
-                color: "#fff",
+                backgroundColor: Colors.primary,
+                padding: 5,
+                borderRadius: 5,
               }}
             >
-              {item.listing_type.description}
-            </Text>
+              <Text
+                style={{
+                  fontFamily: "MontserratBold",
+                  fontSize: 16,
+                  color: "#fff",
+                }}
+              >
+                {item.listing_type.description}
+              </Text>
+            </View>
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                padding: 5,
+                borderRadius: 5,
+                flexDirection: "row",
+                gap: 5,
+                backgroundColor: Colors.primary,
+              }}
+            >
+              <Ionicons name="expand-outline" size={22} color="#fff" />
+              <Text
+                style={{
+                  fontFamily: "MontserratBold",
+                  fontSize: 16,
+                  color: "#fff",
+                }}
+              >
+                {item.property_type.description === "Warehouse" &&
+                  item.estate.building_size}
+                {["Condominium", "House", "Apartment", "Land"].includes(
+                  item.property_type.description
+                ) &&
+                  (item.estate.floor_size || item.estate.lot_size)}
+              </Text>
+            </View>
           </View>
+
           <TouchableOpacity
             style={{ position: "absolute", right: 30, top: 30 }}
           >
