@@ -7,13 +7,18 @@ import { defaultStyle } from "@/constants/Styles";
 import { propertyListings } from "@/assets/data/propertyListings";
 import { useRouter } from "expo-router";
 import CustomMapMarker from "./CustomMapMarker";
+import { useColorScheme } from "../hooks/useColorScheme";
+import { mapDarkModeStyle } from "@/constants/MapDarkModeStyle";
 
 const ListingsMap = () => {
   const router = useRouter();
+  const colorScheme = useColorScheme();
 
   return (
     <View style={defaultStyle.container}>
       <MapView
+        userInterfaceStyle={colorScheme === "dark" ? "dark" : "light"}
+        customMapStyle={colorScheme === "dark" ? mapDarkModeStyle : undefined}
         animationEnabled={false}
         style={StyleSheet.absoluteFill}
         provider={PROVIDER_GOOGLE}
@@ -36,9 +41,6 @@ const ListingsMap = () => {
             key={l.id}
             id={String(l.id)}
             price={l.price_formatted}
-            listingType={l.listing_type.description}
-            propertyType={l.property_type.description}
-            city={l.estate.city.name}
             coordinate={{
               latitude: l.estate.latitude,
               longitude: l.estate.longitude,

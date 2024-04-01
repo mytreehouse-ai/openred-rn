@@ -33,6 +33,7 @@ const ListingsBottomSheets: React.FC<ListingsBottomSheetsProps> = ({
       snapPoints={snapPoints}
       enablePanDownToClose={false}
       handleIndicatorStyle={{ backgroundColor: Colors.gray900 }}
+      backgroundStyle={{ backgroundColor: "#fff" }}
       style={styles.sheetContainer}
     >
       <Listings
@@ -66,10 +67,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 30,
     gap: 10,
-    padding: 14,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
   sheetContainer: {
-    backgroundColor: "#fff",
     borderRadius: 10,
     elevation: 4,
     shadowColor: "#000",

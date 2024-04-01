@@ -7,9 +7,6 @@ import Colors from "@/constants/Colors";
 interface CustomMapMarkerProps {
   id: string;
   price: string;
-  listingType: string;
-  propertyType: string;
-  city: string;
   coordinate: {
     latitude: number;
     longitude: number;
@@ -20,9 +17,6 @@ interface CustomMapMarkerProps {
 const CustomMapMarker: React.FC<CustomMapMarkerProps> = ({
   id,
   price,
-  listingType,
-  propertyType,
-  city,
   coordinate,
   onPress,
 }) => (
@@ -33,15 +27,7 @@ const CustomMapMarker: React.FC<CustomMapMarkerProps> = ({
     onPress={onPress}
   >
     <View style={styles.marker}>
-      <View
-        style={{ flexDirection: "row", gap: 2, backgroundColor: "transparent" }}
-      >
-        <Text style={styles.markerText}>{price}</Text>
-        <Text style={styles.markerText}>{city}</Text>
-      </View>
-      <Text style={styles.markerText}>
-        {listingType} {propertyType}
-      </Text>
+      <Text style={styles.markerText}>{price}</Text>
     </View>
   </Marker>
 );

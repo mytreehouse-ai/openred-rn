@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Colors from "@/constants/Colors";
-import Animated, { FadeInRight, FadeOutLeft } from "react-native-reanimated";
+import { FadeInRight, FadeOutLeft } from "react-native-reanimated";
 import { Link } from "expo-router";
-import { Text, View } from "./Themed";
+import { AnimatedView, Text, View } from "./Themed";
 import { Listing } from "@/interfaces/listing";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { FlashList } from "@shopify/flash-list";
@@ -59,7 +59,7 @@ const Listings: React.FC<ListingsProps> = ({
   const renderRow = ({ item }: { item: Listing }) => (
     <Link href={`/listing/${item.id}`} asChild>
       <TouchableOpacity>
-        <Animated.View
+        <AnimatedView
           style={styles.listing}
           entering={FadeInRight.delay(Platform.OS === "android" ? 100 : 0)}
           exiting={FadeOutLeft.delay(Platform.OS === "android" ? 100 : 0)}
@@ -87,7 +87,7 @@ const Listings: React.FC<ListingsProps> = ({
             }}
           >
             <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+              style={{ flexDirection: "row", alignItems: "center", gap: 2 }}
             >
               <Ionicons
                 name="location-outline"
@@ -169,20 +169,19 @@ const Listings: React.FC<ListingsProps> = ({
               </Text>
             </View>
           </View>
-
           <TouchableOpacity
             style={{ position: "absolute", right: 30, top: 30 }}
           >
             <Ionicons name="heart-outline" size={24} color={Colors.gray900} />
           </TouchableOpacity>
-        </Animated.View>
+        </AnimatedView>
       </TouchableOpacity>
     </Link>
   );
 
   const renderRowForLoading = ({ item }: { item: Listing }) => {
     return (
-      <Animated.View
+      <AnimatedView
         style={styles.listing}
         entering={FadeInRight.delay(Platform.OS === "android" ? 100 : 0)}
         exiting={FadeOutLeft.delay(Platform.OS === "android" ? 100 : 0)}
@@ -195,7 +194,7 @@ const Listings: React.FC<ListingsProps> = ({
             {true ? null : <View />}
           </Skeleton>
         </MotiView>
-      </Animated.View>
+      </AnimatedView>
     );
   };
 

@@ -10,6 +10,7 @@ export default {
   gray200: "#e5e7eb",
   gray500: "#6b7280",
   gray900: "#111827",
+
   light: {
     text: "#000",
     background: "#fff",
