@@ -187,8 +187,11 @@ const Listings: React.FC<ListingsProps> = ({
         entering={FadeInRight.delay(Platform.OS === "android" ? 100 : 0)}
         exiting={FadeOutLeft.delay(Platform.OS === "android" ? 100 : 0)}
       >
-        <MotiView animate={{ backgroundColor: "#fff" }}>
+        <MotiView style={{ gap: 10 }} animate={{ backgroundColor: "#fff" }}>
           <Skeleton colorMode="light" width="100%" height={300}>
+            {true ? null : <View />}
+          </Skeleton>
+          <Skeleton colorMode="light" width="100%" height={30}>
             {true ? null : <View />}
           </Skeleton>
         </MotiView>
