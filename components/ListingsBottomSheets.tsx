@@ -4,7 +4,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { Listing } from "@/interfaces/listing";
 import Listings from "./Listings";
 import Colors from "@/constants/Colors";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { Platform, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 interface ListingsBottomSheetsProps {
@@ -17,7 +17,8 @@ const ListingsBottomSheets: React.FC<ListingsBottomSheetsProps> = ({
   listings,
 }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["9%", "99%"], []);
+  const snapPointFirstIndex = Platform.OS === "ios" ? "8%" : "9%";
+  const snapPoints = useMemo(() => [snapPointFirstIndex, "99%"], []);
   const [refresh, setRefresh] = useState(0);
 
   const handleOnCollapse = () => {
