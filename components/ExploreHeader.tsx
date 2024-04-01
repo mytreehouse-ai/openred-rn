@@ -1,10 +1,8 @@
 import React, { useRef, useState } from "react";
-import { Text, View } from "./Themed";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Text, View, SafeAreaView } from "./Themed";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import {
   Platform,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -14,12 +12,15 @@ import * as Haptics from "expo-haptics";
 import { Link } from "expo-router";
 import Colors from "@/constants/Colors";
 import { propertyTypes } from "@/assets/data/propertyTypes";
+import { useColorScheme } from "@/hooks/useColorScheme.web";
+import Ionicons from "./Ionicons";
 
 interface ExploreHeaderProps {
   onPropertyTypeChange: (propertyType: string) => void;
 }
 
 const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
+  const colorScheme = useColorScheme();
   const scrollViewRef = useRef<ScrollView>(null);
   const propertyTypesItemRef = useRef<Array<TouchableOpacity | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -35,12 +36,22 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
                 size={24}
                 color={Colors.gray900}
               />
-              <View>
-                <Text style={{ fontFamily: "MontserratSemiBold" }}>
+              <View
+                style={{
+                  backgroundColor: "transparent",
+                }}
+              >
+                <Text
+                  style={{ fontFamily: "MontserratSemiBold" }}
+                  lightColor="rgba(0,0,0,0.8)"
+                  darkColor="rgba(255,255,255,0.8)"
+                >
                   Where to?
                 </Text>
                 <Text
-                  style={{ fontFamily: "Montserrat", color: Colors.gray500 }}
+                  style={{ fontFamily: "Montserrat" }}
+                  lightColor="rgba(0,0,0,0.8)"
+                  darkColor="rgba(255,255,255,0.8)"
                 >
                   Any where, Any week!
                 </Text>
@@ -111,6 +122,8 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
                     ? styles.propertyTypeItemTextActive
                     : styles.propertyTypeItemText
                 }
+                lightColor="rgba(0,0,0,0.8)"
+                darkColor="rgba(255,255,255,0.8)"
               >
                 {property.name}
               </Text>
@@ -124,7 +137,6 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.white,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     borderBottomColor: Colors.gray100,
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -148,7 +160,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
-    backgroundColor: Colors.white,
     borderColor: Colors.gray500,
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 30,
@@ -165,12 +176,10 @@ const styles = StyleSheet.create({
   propertyTypeItemText: {
     fontFamily: "MontserratSemiBold",
     fontSize: 12,
-    color: Colors.gray500,
   },
   propertyTypeItemTextActive: {
     fontFamily: "MontserratSemiBold",
     fontSize: 12,
-    color: Colors.gray900,
   },
   propertyTypesBtn: {
     alignItems: "center",

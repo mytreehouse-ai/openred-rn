@@ -58,7 +58,7 @@ const Listings: React.FC<ListingsProps> = ({
 
   const renderRow = ({ item }: { item: Listing }) => (
     <Link href={`/listing/${item.id}`} asChild>
-      <TouchableOpacity>
+      <TouchableOpacity activeOpacity={0.8}>
         <AnimatedView
           style={styles.listing}
           entering={FadeInRight.delay(Platform.OS === "android" ? 100 : 0)}
@@ -74,8 +74,9 @@ const Listings: React.FC<ListingsProps> = ({
             style={{
               fontFamily: "MontserratBold",
               fontSize: 16,
-              color: Colors.gray900,
             }}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)"
           >
             {item.listing_title}
           </Text>
@@ -98,8 +99,9 @@ const Listings: React.FC<ListingsProps> = ({
                 style={{
                   fontFamily: "MontserratSemiBold",
                   fontSize: 14,
-                  color: Colors.gray900,
                 }}
+                lightColor="rgba(0,0,0,0.8)"
+                darkColor="rgba(255,255,255,0.8)"
               >
                 {item.estate.city.name}
               </Text>
@@ -108,8 +110,9 @@ const Listings: React.FC<ListingsProps> = ({
               style={{
                 fontFamily: "MontserratSemiBold",
                 fontSize: 14,
-                color: Colors.gray900,
               }}
+              lightColor="rgba(0,0,0,0.8)"
+              darkColor="rgba(255,255,255,0.8)"
             >
               {item.price_formatted}
             </Text>
@@ -135,7 +138,7 @@ const Listings: React.FC<ListingsProps> = ({
                 style={{
                   fontFamily: "MontserratBold",
                   fontSize: 16,
-                  color: "#fff",
+                  color: "rgba(255,255,255,0.8)",
                 }}
               >
                 {item.listing_type.description}
@@ -157,7 +160,7 @@ const Listings: React.FC<ListingsProps> = ({
                 style={{
                   fontFamily: "MontserratBold",
                   fontSize: 16,
-                  color: "#fff",
+                  color: "rgba(255,255,255,0.8)",
                 }}
               >
                 {item.property_type.description === "Warehouse" &&

@@ -1,17 +1,9 @@
 import React from "react";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { useClientOnlyValue } from "@/hooks/useClientOnlyValue";
-
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof Ionicons>["name"];
-  color: string;
-  size?: number;
-}) {
-  return <Ionicons style={{ marginBottom: -3 }} {...props} />;
-}
+import Ionicons from "@/components/Ionicons";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -34,7 +26,7 @@ export default function TabLayout() {
         options={{
           title: "Explore",
           tabBarIcon: ({ color, size }) => (
-            <TabBarIcon name="search-outline" color={color} size={size} />
+            <Ionicons name="search-outline" color={color} size={size} />
           ),
         }}
       />
@@ -43,7 +35,7 @@ export default function TabLayout() {
         options={{
           title: "Valuation",
           tabBarIcon: ({ color, size }) => (
-            <TabBarIcon name="analytics-outline" color={color} size={size} />
+            <Ionicons name="analytics-outline" color={color} size={size} />
           ),
         }}
       />
@@ -52,7 +44,7 @@ export default function TabLayout() {
         options={{
           title: "AI Chat",
           tabBarIcon: ({ color, size }) => (
-            <TabBarIcon name="chatbox-outline" color={color} size={size} />
+            <Ionicons name="chatbox-outline" color={color} size={size} />
           ),
         }}
       />
@@ -61,7 +53,7 @@ export default function TabLayout() {
         options={{
           title: "Wishlist",
           tabBarIcon: ({ color, size }) => (
-            <TabBarIcon name="heart-outline" color={color} size={size} />
+            <Ionicons name="heart-outline" color={color} size={size} />
           ),
         }}
       />
@@ -70,11 +62,7 @@ export default function TabLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <TabBarIcon
-              name="person-circle-outline"
-              color={color}
-              size={size}
-            />
+            <Ionicons name="person-circle-outline" color={color} size={size} />
           ),
         }}
       />

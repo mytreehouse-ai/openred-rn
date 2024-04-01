@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
-import { Text, View } from "./Themed";
+import { Text, View, useThemeColor } from "./Themed";
+import { useColorScheme } from "@/hooks/useColorScheme";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { Listing } from "@/interfaces/listing";
 import Listings from "./Listings";
@@ -16,6 +17,11 @@ const ListingsBottomSheet: React.FC<ListingsBottomSheetsProp> = ({
   propertyType,
   listings,
 }) => {
+  const colorScheme = useColorScheme();
+  const backgroundColor = useThemeColor(
+    { light: "#fff", dark: "#121212" },
+    "background"
+  );
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPointFirstIndex = Platform.OS === "ios" ? "8%" : "9%";
   const snapPoints = useMemo(() => [snapPointFirstIndex, "99%"], []);
@@ -32,8 +38,11 @@ const ListingsBottomSheet: React.FC<ListingsBottomSheetsProp> = ({
       index={1}
       snapPoints={snapPoints}
       enablePanDownToClose={false}
-      handleIndicatorStyle={{ backgroundColor: Colors.gray900 }}
-      backgroundStyle={{ backgroundColor: "#fff" }}
+      handleIndicatorStyle={{
+        backgroundColor:
+          colorScheme === "dark" ? "rgba(255,255,255,0.8)" : "rgba(0,0,0,0.8)",
+      }}
+      backgroundStyle={{ backgroundColor: backgroundColor }}
       style={styles.sheetContainer}
     >
       <Listings
@@ -42,11 +51,23 @@ const ListingsBottomSheet: React.FC<ListingsBottomSheetsProp> = ({
         refresh={refresh}
       />
       <View style={styles.absoluteBtn}>
-        <TouchableOpacity style={styles.btn} onPress={handleOnCollapse}>
-          <Text style={{ fontFamily: "MontserratSemiBold", color: "#fff" }}>
+        <TouchableOpacity
+          style={styles.btn}
+          activeOpacity={0.85}
+          onPress={handleOnCollapse}
+        >
+          <Text
+            style={{ fontFamily: "MontserratSemiBold" }}
+            lightColor="rgba(255,255,255,0.8)"
+            darkColor="rgba(255,255,255,0.8)"
+          >
             Map
           </Text>
-          <Ionicons name="map-outline" size={24} color="#fff" />
+          <Ionicons
+            name="map-outline"
+            size={24}
+            color="rgba(255,255,255,0.8)"
+          />
         </TouchableOpacity>
       </View>
     </BottomSheet>

@@ -12,7 +12,7 @@ export default {
   gray900: "#111827",
 
   light: {
-    text: "#000",
+    text: "#121212",
     background: "#fff",
     tint: tintColorLight,
     tabIconDefault: "#ccc",
@@ -20,7 +20,7 @@ export default {
   },
   dark: {
     text: "#fff",
-    background: "#000",
+    background: "#121212",
     tint: tintColorDark,
     tabIconDefault: "#ccc",
     tabIconSelected: tintColorDark,
