@@ -5,6 +5,7 @@ import ListingsMap from "@/components/ListingsMap";
 import ListingsBottomSheets from "@/components/ListingsBottomSheets";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Stack } from "expo-router";
+import { defaultStyle } from "@/constants/Styles";
 
 const Explore = () => {
   const [propertyType, setPropertyType] = useState("Warehouse");
@@ -14,7 +15,7 @@ const Explore = () => {
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={defaultStyle.container}>
       <Stack.Screen
         options={{
           header: () => <ExploreHeader onPropertyTypeChange={onDataChange} />,

@@ -15,6 +15,7 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import NetInfo from "@react-native-community/netinfo";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -79,6 +80,16 @@ function RootLayoutNav() {
   const router = useRouter();
   const { isLoaded, isSignedIn } = useAuth();
   const colorScheme = useColorScheme();
+
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
+      const conn = state.isConnected;
+      console.log("Connection type", state.type);
+      !conn ? alert("No Internet Connection!") : null;
+    });
+
+    return () => removeNetInfoSubscription();
+  }, []);
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
