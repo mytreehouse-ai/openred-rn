@@ -152,7 +152,7 @@ const Listings: React.FC<ListingsProps> = ({
                 backgroundColor: Colors.primary,
               }}
             >
-              <Ionicons name="expand-outline" size={22} color="#fff" />
+              <Ionicons name="expand-outline" size={20} color="#fff" />
               <Text
                 style={{
                   fontFamily: "MontserratBold",
@@ -172,7 +172,7 @@ const Listings: React.FC<ListingsProps> = ({
           <TouchableOpacity
             style={{ position: "absolute", right: 30, top: 30 }}
           >
-            <Ionicons name="heart-outline" size={24} color={Colors.gray900} />
+            <Ionicons name="heart-outline" size={24} color="red" />
           </TouchableOpacity>
         </AnimatedView>
       </TouchableOpacity>
