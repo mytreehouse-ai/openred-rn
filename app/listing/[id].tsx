@@ -27,7 +27,7 @@ const PropertyListing = () => {
   const navigation = useNavigation();
 
   const { data: propertyListings, isLoading } =
-    usePropertyListingsQuery("Warehouse");
+    usePropertyListingsQuery("Condominium");
   const propertyListing = propertyListings?.results.find(
     (item) => item.id === Number(id)
   );
@@ -190,7 +190,7 @@ const PropertyListing = () => {
           </Markdown>
         </View>
       </Animated.ScrollView>
-      <Animated.View
+      <AnimatedView
         style={defaultStyle.footer}
         entering={SlideInDown.delay(200)}
       >
@@ -240,7 +240,7 @@ const PropertyListing = () => {
             <Text style={defaultStyle.btnText}>Inquire now</Text>
           </TouchableOpacity>
         </View>
-      </Animated.View>
+      </AnimatedView>
     </View>
   );
 };
