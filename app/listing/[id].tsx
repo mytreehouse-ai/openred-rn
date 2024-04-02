@@ -10,12 +10,11 @@ import Animated, {
 } from "react-native-reanimated";
 import Markdown from "react-native-markdown-display";
 import { AnimatedView, Text, View } from "@/components/Themed";
-import { propertyListings } from "@/assets/data/propertyListings";
-import { Listing } from "@/interfaces/listing";
 import { defaultStyle } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { usePropertyListingsQuery } from "@/hooks/usePropertyListingsQuery";
 
 const IMAGE_HEIGHT = 300;
 const { width } = Dimensions.get("window");
@@ -26,9 +25,12 @@ const PropertyListing = () => {
   const colorScheme = useColorScheme();
   const { id } = useLocalSearchParams<{ id: string }>();
   const navigation = useNavigation();
-  const listing: Listing = propertyListings.find(
+
+  const { data: propertyListings, isLoading } =
+    usePropertyListingsQuery("Warehouse");
+  const propertyListing = propertyListings?.results.find(
     (item) => item.id === Number(id)
-  ) as Listing;
+  );
 
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
 
@@ -58,7 +60,7 @@ const PropertyListing = () => {
   const shareListing = async () => {
     try {
       await Share.share({
-        message: `Check out this listing on Rentalz: ${listing.listing_url}`,
+        message: `Check out this listing on Rentalz: ${propertyListing?.listing_url}`,
       });
     } catch (error) {
       console.error(error);
@@ -118,7 +120,8 @@ const PropertyListing = () => {
       >
         <Animated.Image
           source={{
-            uri: listing.estate.image_url ?? PROPERTY_IMAGE_PLACEHOLDER,
+            uri:
+              propertyListing?.estate.image_url ?? PROPERTY_IMAGE_PLACEHOLDER,
           }}
           style={[styles.image, imageAnimatedStyle]}
         />
@@ -129,7 +132,7 @@ const PropertyListing = () => {
               fontSize: 18,
             }}
           >
-            {listing.listing_title}
+            {propertyListing?.listing_title}
           </Text>
           <Text
             style={{
@@ -137,7 +140,8 @@ const PropertyListing = () => {
               fontSize: 14,
             }}
           >
-            {listing.estate.address || listing.estate.city.name}
+            {propertyListing?.estate.address ||
+              propertyListing?.estate.city.name}
           </Text>
           <Markdown
             style={{
@@ -181,7 +185,8 @@ const PropertyListing = () => {
               },
             }}
           >
-            {listing.estate.markdown || listing.estate.description}
+            {propertyListing?.estate.markdown ||
+              propertyListing?.estate.description}
           </Markdown>
         </View>
       </Animated.ScrollView>
@@ -204,7 +209,7 @@ const PropertyListing = () => {
             }}
           >
             <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}>
-              {listing.price_formatted}
+              {propertyListing?.price_formatted}
             </Text>
             <View style={{ alignSelf: "flex-start" }}>
               <Text
@@ -216,7 +221,7 @@ const PropertyListing = () => {
                   borderWidth: StyleSheet.hairlineWidth,
                 }}
               >
-                {listing.listing_type.description}
+                {propertyListing?.listing_type.description}
               </Text>
             </View>
           </View>
