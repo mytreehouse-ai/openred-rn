@@ -1,12 +1,11 @@
 import React, { useMemo, useRef, useState } from "react";
-import { Text, View, useThemeColor } from "./Themed";
+import { Ionicons, Text, View, useThemeColor } from "./Themed";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { Listing } from "@/interfaces/listing";
 import Listings from "./Listings";
 import Colors from "@/constants/Colors";
 import { Platform, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 
 interface ListingsBottomSheetsProp {
   propertyType: string;
@@ -52,22 +51,26 @@ const ListingsBottomSheet: React.FC<ListingsBottomSheetsProp> = ({
       />
       <View style={styles.absoluteBtn}>
         <TouchableOpacity
-          style={styles.btn}
+          style={[
+            styles.btn,
+            {
+              backgroundColor:
+                colorScheme === "light"
+                  ? Colors.light.primary
+                  : Colors.dark.primary,
+            },
+          ]}
           activeOpacity={0.85}
           onPress={handleOnCollapse}
         >
           <Text
             style={{ fontFamily: "MontserratSemiBold" }}
-            lightColor="rgba(255,255,255,0.8)"
-            darkColor="rgba(255,255,255,0.8)"
+            lightColor={Colors.light.text}
+            darkColor={Colors.dark.text}
           >
             Map
           </Text>
-          <Ionicons
-            name="map-outline"
-            size={24}
-            color="rgba(255,255,255,0.8)"
-          />
+          <Ionicons name="map-outline" size={24} />
         </TouchableOpacity>
       </View>
     </BottomSheet>
@@ -83,11 +86,10 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   btn: {
-    backgroundColor: Colors.common.gray["900"],
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 30,
-    gap: 10,
+    gap: 4,
     paddingHorizontal: 16,
     paddingVertical: 12,
   },
