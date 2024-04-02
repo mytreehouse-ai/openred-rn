@@ -115,10 +115,7 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
                 ? [
                     styles.propertyTypesBtnActive,
                     {
-                      borderBottomColor:
-                        colorScheme === "light"
-                          ? Colors.light.primary
-                          : Colors.common.white,
+                      borderBottomColor: Colors.light.primary,
                     },
                   ]
                 : styles.propertyTypesBtn,
@@ -159,12 +156,8 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
               size={24}
               color={
                 activeIndex === index
-                  ? colorScheme === "light"
-                    ? Colors.light.tabIconSelected
-                    : Colors.dark.tabIconSelected
-                  : colorScheme === "dark"
-                  ? Colors.light.tabIconDefault
-                  : Colors.dark.tabIconDefault
+                  ? Colors.light.tabIconSelected
+                  : Colors.light.tabIconDefault
               }
             />
             <Text
