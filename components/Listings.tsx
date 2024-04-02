@@ -136,7 +136,7 @@ const Listings: React.FC<ListingsProps> = ({
                 style={{
                   fontFamily: "MontserratBold",
                   color: Colors.common.white,
-                  fontSize: 16,
+                  fontSize: 14,
                 }}
               >
                 {item.listing_type.description}
@@ -145,7 +145,6 @@ const Listings: React.FC<ListingsProps> = ({
             <View
               style={{
                 alignItems: "center",
-                justifyContent: "center",
                 padding: 5,
                 borderRadius: 5,
                 flexDirection: "row",
@@ -163,7 +162,7 @@ const Listings: React.FC<ListingsProps> = ({
                 style={{
                   fontFamily: "MontserratBold",
                   color: Colors.common.white,
-                  fontSize: 16,
+                  fontSize: 14,
                 }}
               >
                 {item.property_type.description === "Warehouse" &&
