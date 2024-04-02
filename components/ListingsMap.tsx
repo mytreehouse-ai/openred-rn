@@ -17,7 +17,7 @@ const ListingsMap = () => {
   return (
     <View style={defaultStyle.container}>
       <MapView
-        userInterfaceStyle={colorScheme === "dark" ? "dark" : "light"}
+        userInterfaceStyle={colorScheme as "light" | "dark"}
         customMapStyle={colorScheme === "dark" ? mapDarkModeStyle : undefined}
         animationEnabled={false}
         style={StyleSheet.absoluteFill}

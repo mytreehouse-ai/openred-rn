@@ -13,9 +13,9 @@ import Constants from "expo-constants";
 import { useEffect } from "react";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { TouchableOpacity } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NetInfo from "@react-native-community/netinfo";
+import { Ionicons } from "@/components/Themed";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -83,9 +83,9 @@ function RootLayoutNav() {
 
   useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
-      const conn = state.isConnected;
-      console.log("Connection type", state.type);
-      !conn ? alert("No Internet Connection!") : null;
+      const connected = state.isConnected;
+      const _connectionType = state.type;
+      !connected ? alert("No Internet Connection!") : null;
     });
 
     return () => removeNetInfoSubscription();
@@ -124,9 +124,9 @@ function RootLayoutNav() {
             headerTitleStyle: {
               fontFamily: "MontserratSemiBold",
             },
-            headerLeft: () => (
+            headerLeft: ({ tintColor }) => (
               <TouchableOpacity onPress={() => router.back()}>
-                <Ionicons name="close-outline" size={28} />
+                <Ionicons name="close-outline" size={28} color={tintColor} />
               </TouchableOpacity>
             ),
           }}
@@ -147,9 +147,9 @@ function RootLayoutNav() {
             headerTitleStyle: {
               fontFamily: "MontserratSemiBold",
             },
-            headerLeft: () => (
+            headerLeft: ({ tintColor }) => (
               <TouchableOpacity onPress={() => router.back()}>
-                <Ionicons name="close-outline" size={28} />
+                <Ionicons name="close-outline" size={28} color={tintColor} />
               </TouchableOpacity>
             ),
           }}

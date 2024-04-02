@@ -10,9 +10,8 @@ import {
 import Colors from "@/constants/Colors";
 import { FadeInRight, FadeOutLeft } from "react-native-reanimated";
 import { Link } from "expo-router";
-import { AnimatedView, Text, View } from "./Themed";
+import { AnimatedView, Ionicons, Text, View } from "./Themed";
 import { Listing } from "@/interfaces/listing";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { FlashList } from "@shopify/flash-list";
 import { useTodosQuery } from "@/hooks/useTodosQuery";
 import {
@@ -22,6 +21,7 @@ import {
 import { Skeleton } from "moti/skeleton";
 import { defaultStyle } from "@/constants/Styles";
 import { MotiView } from "moti";
+import { useColorScheme } from "@/hooks/useColorScheme";
 
 interface ListingsProps {
   propertyType: string;
@@ -38,6 +38,7 @@ const Listings: React.FC<ListingsProps> = ({
   listings,
   refresh,
 }) => {
+  const colorScheme = useColorScheme();
   const flashListRef = useRef<FlashList<any>>(null);
   const flatListRef = useRef<BottomSheetFlatListMethods>(null);
   const items = listings.filter(
@@ -75,8 +76,8 @@ const Listings: React.FC<ListingsProps> = ({
               fontFamily: "MontserratBold",
               fontSize: 16,
             }}
-            lightColor="rgba(0,0,0,0.8)"
-            darkColor="rgba(255,255,255,0.8)"
+            lightColor={Colors.light.text}
+            darkColor={Colors.dark.text}
           >
             {item.listing_title}
           </Text>
@@ -90,18 +91,14 @@ const Listings: React.FC<ListingsProps> = ({
             <View
               style={{ flexDirection: "row", alignItems: "center", gap: 2 }}
             >
-              <Ionicons
-                name="location-outline"
-                size={22}
-                color={Colors.gray900}
-              />
+              <Ionicons name="location-outline" size={24} />
               <Text
                 style={{
                   fontFamily: "MontserratSemiBold",
-                  fontSize: 14,
+                  fontSize: 16,
                 }}
-                lightColor="rgba(0,0,0,0.8)"
-                darkColor="rgba(255,255,255,0.8)"
+                lightColor={Colors.light.text}
+                darkColor={Colors.dark.text}
               >
                 {item.estate.city.name}
               </Text>
@@ -109,10 +106,10 @@ const Listings: React.FC<ListingsProps> = ({
             <Text
               style={{
                 fontFamily: "MontserratSemiBold",
-                fontSize: 14,
+                fontSize: 16,
               }}
-              lightColor="rgba(0,0,0,0.8)"
-              darkColor="rgba(255,255,255,0.8)"
+              lightColor={Colors.light.text}
+              darkColor={Colors.dark.text}
             >
               {item.price_formatted}
             </Text>
@@ -129,16 +126,17 @@ const Listings: React.FC<ListingsProps> = ({
           >
             <View
               style={{
-                backgroundColor: Colors.primary,
                 padding: 5,
                 borderRadius: 5,
               }}
+              lightColor={Colors.light.primary}
+              darkColor={Colors.dark.primary}
             >
               <Text
                 style={{
                   fontFamily: "MontserratBold",
+                  color: Colors.common.white,
                   fontSize: 16,
-                  color: "rgba(255,255,255,0.8)",
                 }}
               >
                 {item.listing_type.description}
@@ -152,15 +150,20 @@ const Listings: React.FC<ListingsProps> = ({
                 borderRadius: 5,
                 flexDirection: "row",
                 gap: 5,
-                backgroundColor: Colors.primary,
               }}
+              lightColor={Colors.light.primary}
+              darkColor={Colors.dark.primary}
             >
-              <Ionicons name="expand-outline" size={20} color="#fff" />
+              <Ionicons
+                name="expand-outline"
+                size={20}
+                color={Colors.common.white}
+              />
               <Text
                 style={{
                   fontFamily: "MontserratBold",
+                  color: Colors.common.white,
                   fontSize: 16,
-                  color: "rgba(255,255,255,0.8)",
                 }}
               >
                 {item.property_type.description === "Warehouse" &&
@@ -189,11 +192,22 @@ const Listings: React.FC<ListingsProps> = ({
         entering={FadeInRight.delay(Platform.OS === "android" ? 100 : 0)}
         exiting={FadeOutLeft.delay(Platform.OS === "android" ? 100 : 0)}
       >
-        <MotiView style={{ gap: 10 }} animate={{ backgroundColor: "#fff" }}>
-          <Skeleton colorMode="light" width="100%" height={300}>
+        <MotiView
+          style={{ gap: 10 }}
+          animate={{ backgroundColor: "transparent" }}
+        >
+          <Skeleton
+            colorMode={colorScheme as "light" | "dark"}
+            width="100%"
+            height={300}
+          >
             {true ? null : <View />}
           </Skeleton>
-          <Skeleton colorMode="light" width="100%" height={30}>
+          <Skeleton
+            colorMode={colorScheme as "light" | "dark"}
+            width="100%"
+            height={30}
+          >
             {true ? null : <View />}
           </Skeleton>
         </MotiView>
@@ -229,7 +243,11 @@ const Listings: React.FC<ListingsProps> = ({
             renderItem={isLoading ? renderRowForLoading : renderRow}
             ListHeaderComponent={
               <View style={{ alignItems: "center" }}>
-                <Text style={{ fontFamily: "MontserratSemiBold" }}>
+                <Text
+                  style={{ fontFamily: "MontserratSemiBold" }}
+                  lightColor={Colors.light.text}
+                  darkColor={Colors.dark.text}
+                >
                   {listings.length} {propertyType}
                 </Text>
               </View>
@@ -245,7 +263,11 @@ const Listings: React.FC<ListingsProps> = ({
           keyExtractor={(item) => item.id.toString()}
           ListHeaderComponent={
             <View style={{ alignItems: "center" }}>
-              <Text style={{ fontFamily: "MontserratSemiBold" }}>
+              <Text
+                style={{ fontFamily: "MontserratSemiBold" }}
+                lightColor={Colors.light.text}
+                darkColor={Colors.dark.text}
+              >
                 {listings.length} {propertyType}
               </Text>
             </View>

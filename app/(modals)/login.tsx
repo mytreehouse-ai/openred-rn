@@ -1,11 +1,12 @@
 import React from "react";
-import { Text, View } from "@/components/Themed";
+import { Ionicons, Text, View } from "@/components/Themed";
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
 import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { defaultStyle } from "@/constants/Styles";
-import { Ionicons } from "@expo/vector-icons";
 import { useOAuth } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import Colors from "@/constants/Colors";
 
 enum Strategy {
   Google = "oauth_google",
@@ -15,6 +16,7 @@ enum Strategy {
 
 const Login = () => {
   useWarmUpBrowser();
+  const colorScheme = useColorScheme();
   const router = useRouter();
 
   const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
@@ -56,8 +58,20 @@ const Login = () => {
           style={[defaultStyle.inpField]}
           placeholder="Password"
         />
-        <TouchableOpacity style={[defaultStyle.btn]}>
-          <Text style={defaultStyle.btnText}>Login</Text>
+        <TouchableOpacity
+          style={[
+            defaultStyle.btn,
+            {
+              backgroundColor:
+                colorScheme === "light"
+                  ? Colors.light.primary
+                  : Colors.dark.primary,
+            },
+          ]}
+        >
+          <Text style={[defaultStyle.btnText, { color: Colors.common.white }]}>
+            Login
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.seperatorView}>
@@ -87,7 +101,13 @@ const Login = () => {
             size={24}
             style={defaultStyle.btnIconLeft}
           />
-          <Text style={defaultStyle.btnOutlineText}>Continue With Google</Text>
+          <Text
+            style={defaultStyle.btnOutlineText}
+            lightColor={Colors.light.text}
+            darkColor={Colors.dark.text}
+          >
+            Continue With Google
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[defaultStyle.btnOutline]}
@@ -98,7 +118,13 @@ const Login = () => {
             size={24}
             style={defaultStyle.btnIconLeft}
           />
-          <Text style={defaultStyle.btnOutlineText}>Continue With Apple</Text>
+          <Text
+            style={defaultStyle.btnOutlineText}
+            lightColor={Colors.light.text}
+            darkColor={Colors.dark.text}
+          >
+            Continue With Apple
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={defaultStyle.btnOutline}
@@ -109,7 +135,11 @@ const Login = () => {
             size={24}
             style={defaultStyle.btnIconLeft}
           />
-          <Text style={defaultStyle.btnOutlineText}>
+          <Text
+            style={defaultStyle.btnOutlineText}
+            lightColor={Colors.light.text}
+            darkColor={Colors.dark.text}
+          >
             Continue With Facebook
           </Text>
         </TouchableOpacity>

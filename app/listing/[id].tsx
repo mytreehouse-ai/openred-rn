@@ -9,12 +9,13 @@ import Animated, {
   useScrollViewOffset,
 } from "react-native-reanimated";
 import Markdown from "react-native-markdown-display";
-import { Text, View } from "@/components/Themed";
+import { AnimatedView, Text, View } from "@/components/Themed";
 import { propertyListings } from "@/assets/data/propertyListings";
 import { Listing } from "@/interfaces/listing";
 import { defaultStyle } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useColorScheme } from "@/hooks/useColorScheme";
 
 const IMAGE_HEIGHT = 300;
 const { width } = Dimensions.get("window");
@@ -22,6 +23,7 @@ const PROPERTY_IMAGE_PLACEHOLDER =
   "https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
 const Page = () => {
+  const colorScheme = useColorScheme();
   const { id } = useLocalSearchParams<{ id: string }>();
   const navigation = useNavigation();
   const listing: Listing = propertyListings.find(
@@ -71,24 +73,36 @@ const Page = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerBackground: () => (
-        <Animated.View style={[headerAnimatedStyle, styles.header]} />
+        <AnimatedView style={[headerAnimatedStyle, styles.header]} />
       ),
       headerRight: () => (
         <View style={styles.bar}>
-          <TouchableOpacity style={styles.barRoundBtn} onPress={shareListing}>
-            <Ionicons name="share-outline" size={22} color={Colors.gray900} />
+          <TouchableOpacity style={[styles.barRoundBtn]} onPress={shareListing}>
+            <Ionicons
+              name="share-outline"
+              size={22}
+              color={Colors.common.gray["900"]}
+            />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.barRoundBtn}>
-            <Ionicons name="heart-outline" size={22} color={Colors.gray900} />
+          <TouchableOpacity style={[styles.barRoundBtn]}>
+            <Ionicons
+              name="heart-outline"
+              size={22}
+              color={Colors.common.gray["900"]}
+            />
           </TouchableOpacity>
         </View>
       ),
       headerLeft: () => (
         <TouchableOpacity
-          style={styles.barRoundBtn}
+          style={[styles.barRoundBtn]}
           onPress={navigation.goBack}
         >
-          <Ionicons name="arrow-back" size={22} color={Colors.gray900} />
+          <Ionicons
+            name="arrow-back"
+            size={22}
+            color={Colors.common.gray["900"]}
+          />
         </TouchableOpacity>
       ),
     });
@@ -128,7 +142,11 @@ const Page = () => {
             style={{
               body: {
                 fontFamily: "Montserrat",
-                fontSize: 12, // Reduced font size for body
+                fontSize: 12,
+                color:
+                  colorScheme === "light"
+                    ? Colors.light.text
+                    : Colors.dark.text,
               },
               heading1: {
                 fontFamily: "MontserratBold",
@@ -202,7 +220,16 @@ const Page = () => {
             </View>
           </View>
           <TouchableOpacity
-            style={[defaultStyle.btn, { paddingHorizontal: 20 }]}
+            style={[
+              defaultStyle.btn,
+              {
+                paddingHorizontal: 20,
+                backgroundColor:
+                  colorScheme === "light"
+                    ? Colors.light.primary
+                    : Colors.dark.primary,
+              },
+            ]}
           >
             <Text style={defaultStyle.btnText}>Inquire now</Text>
           </TouchableOpacity>
@@ -215,12 +242,10 @@ const Page = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
   },
   header: {
-    backgroundColor: "#fff",
     height: 100,
-    borderBottomColor: Colors.gray500,
+    borderBottomColor: Colors.common.gray["500"],
     borderWidth: StyleSheet.hairlineWidth,
   },
   image: {
@@ -237,13 +262,12 @@ const styles = StyleSheet.create({
   barRoundBtn: {
     width: 40,
     height: 40,
+    backgroundColor: Colors.common.white,
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 20,
-    borderColor: Colors.gray500,
-    backgroundColor: "#fff",
+    borderColor: Colors.common.gray["500"],
     alignItems: "center",
     justifyContent: "center",
-    color: Colors.primary,
   },
 });
 

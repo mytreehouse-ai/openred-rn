@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   btn: {
-    backgroundColor: Colors.gray900,
+    backgroundColor: Colors.common.gray["900"],
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 30,
