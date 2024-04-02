@@ -124,9 +124,9 @@ function RootLayoutNav() {
             headerTitleStyle: {
               fontFamily: "MontserratSemiBold",
             },
-            headerLeft: ({ tintColor }) => (
+            headerLeft: () => (
               <TouchableOpacity onPress={() => router.back()}>
-                <Ionicons name="close-outline" size={28} color={tintColor} />
+                <Ionicons name="close-outline" size={28} />
               </TouchableOpacity>
             ),
           }}
@@ -147,9 +147,9 @@ function RootLayoutNav() {
             headerTitleStyle: {
               fontFamily: "MontserratSemiBold",
             },
-            headerLeft: ({ tintColor }) => (
+            headerLeft: () => (
               <TouchableOpacity onPress={() => router.back()}>
-                <Ionicons name="close-outline" size={28} color={tintColor} />
+                <Ionicons name="close-outline" size={28} />
               </TouchableOpacity>
             ),
           }}
