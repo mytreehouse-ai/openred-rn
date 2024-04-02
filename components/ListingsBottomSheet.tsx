@@ -18,7 +18,7 @@ const ListingsBottomSheet: React.FC<ListingsBottomSheetsProp> = ({
 }) => {
   const colorScheme = useColorScheme();
   const backgroundColor = useThemeColor(
-    { light: "#fff", dark: "#121212" },
+    { light: Colors.light.background, dark: Colors.dark.background },
     "background"
   );
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -39,7 +39,9 @@ const ListingsBottomSheet: React.FC<ListingsBottomSheetsProp> = ({
       enablePanDownToClose={false}
       handleIndicatorStyle={{
         backgroundColor:
-          colorScheme === "dark" ? "rgba(255,255,255,0.8)" : "rgba(0,0,0,0.8)",
+          colorScheme === "light"
+            ? Colors.common.semiTransparentBlack
+            : Colors.common.semiTransparentWhite,
       }}
       backgroundStyle={{ backgroundColor: backgroundColor }}
       style={styles.sheetContainer}
