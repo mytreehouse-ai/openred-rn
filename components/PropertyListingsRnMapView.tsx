@@ -2,17 +2,27 @@ import React from "react";
 import { View } from "./Themed";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 import MapView from "react-native-map-clustering";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { defaultStyle } from "@/constants/Styles";
-import { propertyListings } from "@/assets/data/propertyListings";
 import { useRouter } from "expo-router";
 import CustomMapMarker from "./CustomMapMarker";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { mapDarkModeStyle } from "@/constants/MapStyle";
+import { Listing } from "@/interfaces/listing";
+import { UseQueryResult } from "@tanstack/react-query";
+import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
 
-const ListingsMap = () => {
+interface PropertyListingsRnMapViewProps {
+  propertyListingsQuery: UseQueryResult<ApiBaseResponse<Listing[]>, Error>;
+}
+
+const PropertyListingsRnMapView = ({
+  propertyListingsQuery,
+}: PropertyListingsRnMapViewProps) => {
   const router = useRouter();
   const colorScheme = useColorScheme();
+
+  const { isLoading, data: propertyListings } = propertyListingsQuery;
 
   return (
     <View style={defaultStyle.container}>
@@ -20,6 +30,7 @@ const ListingsMap = () => {
         userInterfaceStyle={colorScheme as "light" | "dark"}
         customMapStyle={colorScheme === "dark" ? mapDarkModeStyle : undefined}
         animationEnabled={false}
+        loadingEnabled={Platform.OS === "android" ? true : false}
         style={StyleSheet.absoluteFill}
         provider={PROVIDER_GOOGLE}
         zoomEnabled={true}
@@ -36,18 +47,22 @@ const ListingsMap = () => {
           longitudeDelta: 0.005,
         }}
       >
-        {propertyListings.map((l) => (
-          <CustomMapMarker
-            key={l.id}
-            id={String(l.id)}
-            price={l.price_formatted}
-            coordinate={{
-              latitude: l.estate.latitude,
-              longitude: l.estate.longitude,
-            }}
-            onPress={() => router.push(`/listing/${l.id}`)}
-          />
-        ))}
+        {propertyListings?.results
+          .filter(
+            (listing) => listing.estate.latitude && listing.estate.longitude
+          )
+          .map((listing) => (
+            <CustomMapMarker
+              key={listing.id}
+              id={String(listing.id)}
+              price={listing.price_formatted}
+              coordinate={{
+                latitude: listing.estate.latitude,
+                longitude: listing.estate.longitude,
+              }}
+              onPress={() => router.push(`/listing/${listing.id}`)}
+            />
+          ))}
       </MapView>
     </View>
   );
@@ -57,4 +72,4 @@ const styles = StyleSheet.create({
   map: {},
 });
 
-export default ListingsMap;
+export default PropertyListingsRnMapView;

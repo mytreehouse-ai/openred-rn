@@ -37,6 +37,10 @@ export default {
   common: {
     white: "#FFFFFF",
     black: "#000000",
+    red: {
+      400: "#f87171",
+      600: "#dc2626",
+    },
     gray: {
       50: "#F9FAFB",
       100: "#F3F4F6",

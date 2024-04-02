@@ -22,13 +22,14 @@ const { width } = Dimensions.get("window");
 const PROPERTY_IMAGE_PLACEHOLDER =
   "https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
-const Page = () => {
+const PropertyListing = () => {
   const colorScheme = useColorScheme();
   const { id } = useLocalSearchParams<{ id: string }>();
   const navigation = useNavigation();
   const listing: Listing = propertyListings.find(
     (item) => item.id === Number(id)
   ) as Listing;
+
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
 
   const scrollOffset = useScrollViewOffset(scrollRef);
@@ -271,4 +272,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Page;
+export default PropertyListing;

@@ -3,19 +3,19 @@ import { Ionicons, Text, View, useThemeColor } from "./Themed";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { Listing } from "@/interfaces/listing";
-import Listings from "./Listings";
 import Colors from "@/constants/Colors";
 import { Platform, StyleSheet, TouchableOpacity } from "react-native";
+import { UseQueryResult } from "@tanstack/react-query";
+import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
+import PropertyListings from "./PropertyListings";
 
-interface ListingsBottomSheetsProp {
-  propertyType: string;
-  listings: Listing[];
+interface PropertyListingsBottomSheetsProp {
+  propertyListingsQuery: UseQueryResult<ApiBaseResponse<Listing[]>, Error>;
 }
 
-const ListingsBottomSheet: React.FC<ListingsBottomSheetsProp> = ({
-  propertyType,
-  listings,
-}) => {
+const PropertyListingsBottomSheet: React.FC<
+  PropertyListingsBottomSheetsProp
+> = ({ propertyListingsQuery }) => {
   const colorScheme = useColorScheme();
   const backgroundColor = useThemeColor(
     { light: Colors.light.background, dark: Colors.dark.background },
@@ -39,16 +39,13 @@ const ListingsBottomSheet: React.FC<ListingsBottomSheetsProp> = ({
       enablePanDownToClose={false}
       handleIndicatorStyle={{
         backgroundColor:
-          colorScheme === "light"
-            ? Colors.common.semiTransparentBlack
-            : Colors.common.semiTransparentWhite,
+          colorScheme === "light" ? Colors.light.primary : Colors.dark.primary,
       }}
       backgroundStyle={{ backgroundColor: backgroundColor }}
       style={styles.sheetContainer}
     >
-      <Listings
-        propertyType={propertyType}
-        listings={listings}
+      <PropertyListings
+        propertyListingsQuery={propertyListingsQuery}
         refresh={refresh}
       />
       <View style={styles.absoluteBtn}>
@@ -66,13 +63,13 @@ const ListingsBottomSheet: React.FC<ListingsBottomSheetsProp> = ({
           onPress={handleOnCollapse}
         >
           <Text
-            style={{ fontFamily: "MontserratSemiBold" }}
+            style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}
             lightColor={Colors.light.text}
             darkColor={Colors.dark.text}
           >
             Map
           </Text>
-          <Ionicons name="map-outline" size={24} />
+          <Ionicons name="map-outline" size={26} />
         </TouchableOpacity>
       </View>
     </BottomSheet>
@@ -108,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListingsBottomSheet;
+export default PropertyListingsBottomSheet;
