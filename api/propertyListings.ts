@@ -12,7 +12,7 @@ export async function fetchPropertyListings(
       throw new Error("Django REST API URL not found");
     }
 
-    const url = `${API_URL}/properties/public?property_status=&property_type=${propertyType}`;
+    const url = `${API_URL}/properties/public?property_status=1&property_type=${propertyType}`;
 
     const response = await fetch(url);
     if (!response.ok) {

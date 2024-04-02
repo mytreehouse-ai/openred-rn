@@ -319,6 +319,13 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
           >
             {true ? null : <View />}
           </Skeleton>
+          <Skeleton
+            colorMode={colorScheme as "light" | "dark"}
+            width="100%"
+            height={30}
+          >
+            {true ? null : <View />}
+          </Skeleton>
         </MotiView>
       </AnimatedView>
     );

@@ -2,6 +2,7 @@ import { Dimensions, Share, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import Animated, {
+  Easing,
   SlideInDown,
   interpolate,
   useAnimatedRef,
@@ -192,7 +193,7 @@ const PropertyListing = () => {
       </Animated.ScrollView>
       <AnimatedView
         style={defaultStyle.footer}
-        entering={SlideInDown.delay(200)}
+        entering={SlideInDown.duration(1000).easing(Easing.out(Easing.cubic))}
       >
         <View
           style={{
