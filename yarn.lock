@@ -1208,24 +1208,24 @@
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
 "@clerk/clerk-expo@^0.20.11":
-  version "0.20.11"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-expo/-/clerk-expo-0.20.11.tgz#36ccb1c4f69772c3e186b520e222c48783f4e1b4"
-  integrity sha512-MUjH8S7/tV6Gt1klIp+cF/ZfGLHZIbNDXXrji50BB6IRL3NSJgbMUAIsHcR+/ld4qFo0/uf1ZqSj0EvWk4//xQ==
+  version "0.20.12"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-expo/-/clerk-expo-0.20.12.tgz#66f98f46926b25b9e0096ae6928dc6016ff7942c"
+  integrity sha512-tW9XFEi9R5scQAjqkYkYmUAjW1mfHEGF9lOWOffu5R3p32Dm6es/s2wj8YNs08KSDWoWK2yUhaC6BY+p5akfrg==
   dependencies:
-    "@clerk/clerk-js" "4.70.6"
-    "@clerk/clerk-react" "4.30.7"
-    "@clerk/shared" "1.3.3"
+    "@clerk/clerk-js" "4.71.0"
+    "@clerk/clerk-react" "4.30.8"
+    "@clerk/shared" "1.4.0"
     base-64 "1.0.0"
     react-native-url-polyfill "2.0.0"
 
-"@clerk/clerk-js@4.70.6":
-  version "4.70.6"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-js/-/clerk-js-4.70.6.tgz#81c81e54dd5fa5e6e177e44929fa743e99b1ef65"
-  integrity sha512-j86I5IIC0XscrN+yHM7SpDxvsQ0kaAP7EDXkiJfEjVWt3mcJdtLr2ekxFXvSBtK2B2fCBcwp8PS6YsJ2Fp81Kg==
+"@clerk/clerk-js@4.71.0":
+  version "4.71.0"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-js/-/clerk-js-4.71.0.tgz#8d5e75a19030423ae587185eb73dbb6e96586c4a"
+  integrity sha512-E2mnZ8FuGe1PbLR3THhQLTzeIXP6o4YF3a3EJKmu3KQ0Jh8MhZfUnUQRIY8zu14gHlpv8xPtVdm94sEwJtT9rg==
   dependencies:
-    "@clerk/localizations" "1.26.16"
-    "@clerk/shared" "1.3.3"
-    "@clerk/types" "3.62.1"
+    "@clerk/localizations" "1.27.0"
+    "@clerk/shared" "1.4.0"
+    "@clerk/types" "3.63.0"
     "@emotion/cache" "11.11.0"
     "@emotion/react" "11.11.1"
     "@floating-ui/react" "0.25.4"
@@ -1239,35 +1239,35 @@
     qs "6.11.0"
     regenerator-runtime "0.13.11"
 
-"@clerk/clerk-react@4.30.7":
-  version "4.30.7"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-react/-/clerk-react-4.30.7.tgz#759179bb5d670f5f2c672bb257f42c1d7e337093"
-  integrity sha512-+6Q1hVteqn66gFLiCKSqqSdz2MBjsEjs1fkGLAEKZC1GdfOKrH6oWcLuSwUdyqRvJWuyjeIgwq15zoHtXKyztA==
+"@clerk/clerk-react@4.30.8":
+  version "4.30.8"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-react/-/clerk-react-4.30.8.tgz#846996344db20b2fe364f9717ca9ba411e310104"
+  integrity sha512-MehccfniWs2v7WSx4qGjJYxL+jtnsK6sETrzBuWctb7rLbvv4jDqjalhXbCm8YTV4qG19jHZl/WNsHOXSzBc7Q==
   dependencies:
-    "@clerk/shared" "1.3.3"
-    "@clerk/types" "3.62.1"
+    "@clerk/shared" "1.4.0"
+    "@clerk/types" "3.63.0"
     tslib "2.4.1"
 
-"@clerk/localizations@1.26.16":
-  version "1.26.16"
-  resolved "https://registry.yarnpkg.com/@clerk/localizations/-/localizations-1.26.16.tgz#9ba9e4b920cdecfefd37e7ea492968b6ef6ccb0e"
-  integrity sha512-jEWlZ9GJ0VKcCZ/vv8xwjwY0T96y0jBK8TWVyzL59jQf1jQJvqLvDN6oIiz7o95fiL+7likHYFBnRAiMXaGKRg==
+"@clerk/localizations@1.27.0":
+  version "1.27.0"
+  resolved "https://registry.yarnpkg.com/@clerk/localizations/-/localizations-1.27.0.tgz#803e45d72359bfba96ed48309346656ccd770140"
+  integrity sha512-ePuxP4jlAVgXeZNukq8LfU0RC6umihus0loHJhXTWLQJ6DSzSzmfyTEl9gGuvvAuDcs7DypnnsP/hXyT42I0Ow==
   dependencies:
-    "@clerk/types" "3.62.1"
+    "@clerk/types" "3.63.0"
 
-"@clerk/shared@1.3.3":
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/@clerk/shared/-/shared-1.3.3.tgz#d4d7447348c1d703112165848cb04f6193572fdb"
-  integrity sha512-Eein8cK72dlvY6Q1uFuw9K9MJH1OPjU8FzWloMTKklBo+iPiM6+uENGeGwlY5KId3q/kgPwRc2hBQnUoaijxCQ==
+"@clerk/shared@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@clerk/shared/-/shared-1.4.0.tgz#9896f913f5b0fb8ce25af8801b4b983911140eba"
+  integrity sha512-LANWfdw3n7lCN90oY+myuCN74CfGgBQE/T11ry/bTSNVqUxXiYaUlfu5Fkp0GsR4icYiA6NRyROFmYdYZfBMAA==
   dependencies:
     glob-to-regexp "0.4.1"
     js-cookie "3.0.1"
     swr "2.2.0"
 
-"@clerk/types@3.62.1":
-  version "3.62.1"
-  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-3.62.1.tgz#cb0c6af58a2825f7e742ca358c0f90d56b9fd9f6"
-  integrity sha512-RmQhWB7EMZw2nE24viQG79VyEUULZYWndYew5oXiZx06DyvysMNCorDyEGRmgBbprv7bnbYhHdOtKmx8Wj0jug==
+"@clerk/types@3.63.0":
+  version "3.63.0"
+  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-3.63.0.tgz#37604fe49e417e39a81c3f24fde3cba5199ea7c5"
+  integrity sha512-+32fWK+lUG2u0hVaoQ3aZ+j2T/LhF3yNNylBrkD1Kca/goLb+NB/nmw6Svs0Q810FK/uYgqWlXvABPhgILeQFA==
   dependencies:
     csstype "3.1.1"
 
@@ -3570,9 +3570,9 @@ camelize@^1.0.0:
   integrity sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ==
 
 caniuse-lite@^1.0.30001587:
-  version "1.0.30001600"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001600.tgz#93a3ee17a35aa6a9f0c6ef1b2ab49507d1ab9079"
-  integrity sha512-+2S9/2JFhYmYaDpZvo0lKkfvuKIglrx68MwOBqMGHhQsNkLjB5xtc/TGoEPs+MxjSyN/72qer2g97nzR641mOQ==
+  version "1.0.30001603"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001603.tgz#605046a5bdc95ba4a92496d67e062522dce43381"
+  integrity sha512-iL2iSS0eDILMb9n5yKQoTBim9jMZ0Yrk8g0N9K7UzYyWnfIKzXBZD5ngpM37ZcL/cv0Mli8XtVMRYMQAfFpi5Q==
 
 chalk@^2.0.1, chalk@^2.4.2:
   version "2.4.2"
@@ -4221,9 +4221,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.668:
-  version "1.4.722"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.722.tgz#99ae3484c5fc0f387d39ad98d77e1f259b9f4074"
-  integrity sha512-5nLE0TWFFpZ80Crhtp4pIp8LXCztjYX41yUcV6b+bKR2PqzjskTMOOlBi1VjBHlvHwS+4gar7kNKOrsbsewEZQ==
+  version "1.4.723"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.723.tgz#827da30c96b316684d352c3d81430029df01bb8e"
+  integrity sha512-rxFVtrMGMFROr4qqU6n95rUi9IlfIm+lIAt+hOToy/9r6CDv0XiEcQdC3VP71y1pE5CFTzKV0RvxOGYCPWWHPw==
 
 emittery@^0.13.1:
   version "0.13.1"
@@ -4571,7 +4571,7 @@ expo-web-browser@~12.8.0, expo-web-browser@~12.8.2:
     compare-urls "^2.0.0"
     url "^0.11.0"
 
-expo@~50.0.14:
+expo@^50.0.14:
   version "50.0.14"
   resolved "https://registry.yarnpkg.com/expo/-/expo-50.0.14.tgz#ddcae86aa0ba8d1be3da9ad1bdda23fa539dc97d"
   integrity sha512-yLPdxCMVAbmeEIpzzyAuJ79wvr6ToDDtQmuLDMAgWtjqP8x3CGddXxUe07PpKEQgzwJabdHvCLP5Bv94wMFIjQ==
@@ -8455,9 +8455,9 @@ terminal-link@^2.1.1:
     supports-hyperlinks "^2.0.0"
 
 terser@^5.15.0:
-  version "5.30.0"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-5.30.0.tgz#64cb2af71e16ea3d32153f84d990f9be0cdc22bf"
-  integrity sha512-Y/SblUl5kEyEFzhMAQdsxVHh+utAxd4IuRNJzKywY/4uzSogh3G219jqbDDxYu4MXO9CzY3tSEqmZvW6AoEDJw==
+  version "5.30.1"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-5.30.1.tgz#4faaeedf00d322eb953dcc1f4eeaa9711c15f093"
+  integrity sha512-PJhOnRttZqqmIujxOQOMu4QuFGvh43lR7Youln3k6OJvmxwZ5FxK5rbCEh8XABRCpLf7ZnhrZuclCNCASsScnA==
   dependencies:
     "@jridgewell/source-map" "^0.3.3"
     acorn "^8.8.2"

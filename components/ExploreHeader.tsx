@@ -9,16 +9,17 @@ import {
   TouchableOpacity,
 } from "react-native";
 import * as Haptics from "expo-haptics";
-import { Link } from "expo-router";
 import Colors from "@/constants/Colors";
 import { propertyTypes } from "@/assets/data/propertyTypes";
-import { useColorScheme } from "@/hooks/useColorScheme.web";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { useRouter } from "expo-router";
 
 interface ExploreHeaderProps {
   onPropertyTypeChange: (propertyType: string) => void;
 }
 
 const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
+  const router = useRouter();
   const colorScheme = useColorScheme();
   const scrollViewRef = useRef<ScrollView>(null);
   const propertyTypesItemRef = useRef<Array<TouchableOpacity | null>>([]);
@@ -26,115 +27,160 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <View style={styles.actionRow}>
-          <Link href="/(modals)/booking" asChild>
-            <TouchableOpacity style={styles.searchBtn} activeOpacity={0.8}>
-              <Ionicons name="search-outline" size={30} />
-              <View
-                style={{
-                  backgroundColor: "transparent",
-                }}
-              >
-                <Text
-                  style={{ fontFamily: "MontserratSemiBold" }}
-                  lightColor={Colors.light.text}
-                  darkColor={Colors.dark.text}
-                >
-                  Where to?
-                </Text>
-                <Text
-                  style={{ fontFamily: "Montserrat" }}
-                  lightColor={Colors.light.text}
-                  darkColor={Colors.dark.text}
-                >
-                  Any where, Any week!
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </Link>
-          <TouchableOpacity style={styles.filterBtn} activeOpacity={0.8}>
-            <Ionicons
-              name="options-outline"
-              size={24}
-              color={Colors.common.gray["900"]}
-            />
-          </TouchableOpacity>
-        </View>
-        <ScrollView
-          horizontal
-          ref={scrollViewRef}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            alignItems: "center",
-            paddingHorizontal: 16,
-            gap: 30,
-          }}
+      <View style={styles.actionRow}>
+        <TouchableOpacity
+          style={[
+            styles.searchBtn,
+            styles.btnShadow,
+            {
+              borderColor:
+                colorScheme === "light"
+                  ? Colors.light.border
+                  : Colors.dark.border,
+              backgroundColor:
+                colorScheme === "light"
+                  ? Colors.light.background
+                  : Colors.dark.background,
+              shadowColor:
+                colorScheme === "light"
+                  ? Colors.common.gray["900"]
+                  : Colors.common.white,
+            },
+          ]}
+          activeOpacity={0.8}
+          onPress={() => router.push("/(modals)/booking")}
         >
-          {propertyTypes.map((property, index) => (
-            <TouchableOpacity
-              key={property.id}
-              activeOpacity={0.8}
+          <Ionicons name="search-outline" size={30} />
+          <View
+            style={{
+              backgroundColor: "transparent",
+            }}
+          >
+            <Text
+              style={{ fontFamily: "MontserratSemiBold" }}
+              lightColor={Colors.light.text}
+              darkColor={Colors.dark.text}
+            >
+              Where to?
+            </Text>
+            <Text
+              style={{ fontFamily: "Montserrat" }}
+              lightColor={Colors.light.text}
+              darkColor={Colors.dark.text}
+            >
+              Any where, Any week!
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.filterBtn,
+            styles.btnShadow,
+            {
+              borderColor:
+                colorScheme === "light"
+                  ? Colors.light.border
+                  : Colors.dark.border,
+              backgroundColor:
+                colorScheme === "light"
+                  ? Colors.light.background
+                  : Colors.dark.background,
+              shadowColor:
+                colorScheme === "light"
+                  ? Colors.common.gray["900"]
+                  : Colors.common.white,
+            },
+          ]}
+          activeOpacity={0.8}
+        >
+          <Ionicons name="options-outline" size={24} />
+        </TouchableOpacity>
+      </View>
+      <ScrollView
+        horizontal
+        ref={scrollViewRef}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          alignItems: "center",
+          paddingHorizontal: 16,
+          gap: 30,
+        }}
+      >
+        {propertyTypes.map((property, index) => (
+          <TouchableOpacity
+            key={property.id}
+            activeOpacity={0.8}
+            style={[
+              activeIndex === index
+                ? [
+                    styles.propertyTypesBtnActive,
+                    {
+                      borderBottomColor:
+                        colorScheme === "light"
+                          ? Colors.light.primary
+                          : Colors.common.white,
+                    },
+                  ]
+                : styles.propertyTypesBtn,
+            ]}
+            ref={(el) => (propertyTypesItemRef.current[index] = el)}
+            onPress={() => {
+              const selected = propertyTypesItemRef.current[index];
+
+              setActiveIndex(index);
+
+              if (selected && Platform.OS === "ios") {
+                selected.measure((x) => {
+                  scrollViewRef.current?.scrollTo({
+                    x: x - 16,
+                    y: 0,
+                    animated: true,
+                  });
+                });
+              }
+
+              // TODO: This isn't working properly.
+              if (selected && Platform.OS === "android") {
+                selected.measure((x, y, width) => {
+                  scrollViewRef.current?.scrollTo({
+                    x: index * width,
+                    y: 0,
+                    animated: true,
+                  });
+                });
+              }
+
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              onPropertyTypeChange(property.name);
+            }}
+          >
+            <MaterialIcons
+              name={property.icon as any}
+              size={24}
+              color={
+                activeIndex === index
+                  ? colorScheme === "light"
+                    ? Colors.light.tabIconSelected
+                    : Colors.dark.tabIconSelected
+                  : colorScheme === "dark"
+                  ? Colors.light.tabIconDefault
+                  : Colors.dark.tabIconDefault
+              }
+            />
+            <Text
               style={
                 activeIndex === index
-                  ? styles.propertyTypesBtnActive
-                  : styles.propertyTypesBtn
+                  ? styles.propertyTypeItemTextActive
+                  : styles.propertyTypeItemText
               }
-              ref={(el) => (propertyTypesItemRef.current[index] = el)}
-              onPress={() => {
-                const selected = propertyTypesItemRef.current[index];
-
-                setActiveIndex(index);
-
-                if (selected && Platform.OS === "ios") {
-                  selected.measure((x) => {
-                    scrollViewRef.current?.scrollTo({
-                      x: x - 16,
-                      y: 0,
-                      animated: true,
-                    });
-                  });
-                }
-
-                // TODO: This isn't working properly.
-                if (selected && Platform.OS === "android") {
-                  selected.measure((x, y, width) => {
-                    scrollViewRef.current?.scrollTo({
-                      x: index * width,
-                      y: 0,
-                      animated: true,
-                    });
-                  });
-                }
-
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                onPropertyTypeChange(property.name);
-              }}
+              lightColor={Colors.light.text}
+              darkColor={Colors.dark.text}
             >
-              <MaterialIcons
-                name={property.icon as any}
-                size={24}
-                color={
-                  activeIndex === index
-                    ? Colors.common.gray["900"]
-                    : Colors.common.gray["500"]
-                }
-              />
-              <Text
-                style={
-                  activeIndex === index
-                    ? styles.propertyTypeItemTextActive
-                    : styles.propertyTypeItemText
-                }
-                lightColor={Colors.light.text}
-                darkColor={Colors.dark.text}
-              >
-                {property.name}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
+              {property.name}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -142,8 +188,6 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    borderBottomColor: Colors.common.gray["100"],
-    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   actionRow: {
     flexDirection: "row",
@@ -156,7 +200,6 @@ const styles = StyleSheet.create({
   filterBtn: {
     padding: 10,
     borderWidth: 1,
-    borderColor: Colors.common.gray["500"],
     borderRadius: 24,
   },
   searchBtn: {
@@ -164,12 +207,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
-    borderColor: Colors.common.gray["500"],
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: 1,
     borderRadius: 30,
     padding: 14,
+  },
+  btnShadow: {
     elevation: 2,
-    shadowColor: Colors.common.gray["900"],
     shadowOpacity: 0.08,
     shadowRadius: 8,
     shadowOffset: {
@@ -193,7 +236,6 @@ const styles = StyleSheet.create({
   propertyTypesBtnActive: {
     alignItems: "center",
     gap: 4,
-    borderBottomColor: Colors.common.gray["900"],
     borderBottomWidth: 2,
     paddingBottom: 10,
   },
