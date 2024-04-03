@@ -175,8 +175,20 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
       >
         <AnimatedView
           style={styles.listing}
-          entering={FadeInRight}
-          exiting={FadeOutLeft}
+          entering={
+            Platform.OS === "android"
+              ? isLoading
+                ? FadeInRight.delay(100)
+                : undefined
+              : FadeInRight
+          }
+          exiting={
+            Platform.OS === "android"
+              ? isLoading
+                ? FadeOutLeft.delay(100)
+                : undefined
+              : FadeOutLeft
+          }
         >
           <Image
             source={{
