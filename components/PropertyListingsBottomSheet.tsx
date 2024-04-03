@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     backgroundColor: "transparent",
+    opacity: 0.75,
   },
   btn: {
     flexDirection: "row",

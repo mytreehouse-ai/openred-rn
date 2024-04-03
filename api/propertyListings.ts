@@ -1,9 +1,11 @@
 import Constants from "expo-constants";
 import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
 import { Listing } from "@/interfaces/listing";
+import { PropertyListingFilters } from "@/interfaces/propertyListingFilters";
+import { filterParams } from "@/utils/filterParams";
 
 export async function fetchPropertyListings(
-  propertyType: string
+  params?: Partial<PropertyListingFilters>
 ): Promise<ApiBaseResponse<Listing[]>> {
   try {
     const API_URL = Constants.expoConfig?.extra?.djangoApiUrl ?? "";
@@ -12,7 +14,9 @@ export async function fetchPropertyListings(
       throw new Error("Django REST API URL not found");
     }
 
-    const url = `${API_URL}/properties/public?property_status=1&property_type=${propertyType}`;
+    const queryParams = filterParams(params);
+
+    const url = `${API_URL}/properties/public?${queryParams}`;
 
     const response = await fetch(url);
     if (!response.ok) {

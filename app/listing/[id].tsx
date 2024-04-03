@@ -16,6 +16,7 @@ import Colors from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { usePropertyListingsQuery } from "@/hooks/usePropertyListingsQuery";
+import globalStateStore from "@/store";
 
 const IMAGE_HEIGHT = 300;
 const { width } = Dimensions.get("window");
@@ -26,9 +27,11 @@ const PropertyListing = () => {
   const colorScheme = useColorScheme();
   const { id } = useLocalSearchParams<{ id: string }>();
   const navigation = useNavigation();
+  const store = globalStateStore();
 
-  const { data: propertyListings, isLoading } =
-    usePropertyListingsQuery("Condominium");
+  const { data: propertyListings, isLoading } = usePropertyListingsQuery(
+    store.filters
+  );
   const propertyListing = propertyListings?.results.find(
     (item) => item.id === Number(id)
   );

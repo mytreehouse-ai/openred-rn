@@ -348,7 +348,7 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
         <View
           style={[
             styles.flashListContainer,
-            { paddingBottom: IMAGE_HEIGHT + 2 },
+            { paddingBottom: IMAGE_HEIGHT + 4.5 },
           ]}
         >
           <FlashList
@@ -376,7 +376,7 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
               ) : (
                 <View style={{ alignItems: "center" }}>
                   <Text
-                    style={{ fontFamily: "MontserratSemiBold" }}
+                    style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}
                     lightColor={Colors.light.text}
                     darkColor={Colors.dark.text}
                   >

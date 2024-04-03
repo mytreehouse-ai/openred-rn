@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ExploreHeader from "@/components/ExploreHeader";
 import PropertyListingsRnMapView from "@/components/PropertyListingsRnMapView";
 import PropertyListingsBottomSheet from "@/components/PropertyListingsBottomSheet";
@@ -6,13 +6,15 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Stack } from "expo-router";
 import { defaultStyle } from "@/constants/Styles";
 import { usePropertyListingsQuery } from "@/hooks/usePropertyListingsQuery";
+import globalStateStore from "@/store";
 
 const Explore = () => {
-  const [propertyType, setPropertyType] = useState("Warehouse");
-  const propertyListingsQuery = usePropertyListingsQuery(propertyType);
+  const store = globalStateStore();
+
+  const propertyListingsQuery = usePropertyListingsQuery(store.filters);
 
   const onDataChange = (propertyType: string) => {
-    setPropertyType(propertyType);
+    store.updateFilters({ property_type: propertyType });
   };
 
   return (
