@@ -1,13 +1,13 @@
-import React, { useMemo, useRef, useState } from "react";
-import { Ionicons, Text, View, useThemeColor } from "./Themed";
-import { useColorScheme } from "@/hooks/useColorScheme";
-import BottomSheet from "@gorhom/bottom-sheet";
-import { Listing } from "@/interfaces/listing";
 import Colors from "@/constants/Colors";
-import { Platform, StyleSheet, TouchableOpacity } from "react-native";
-import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
+import { useColorScheme } from "@/hooks/useColorScheme";
 import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
+import { Listing } from "@/interfaces/listing";
+import BottomSheet from "@gorhom/bottom-sheet";
+import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
+import React, { useMemo, useRef } from "react";
+import { Platform, StyleSheet, TouchableOpacity } from "react-native";
 import PropertyListings from "./PropertyListings";
+import { Ionicons, Text, View, useThemeColor } from "./Themed";
 
 interface PropertyListingsBottomSheetsProp {
   propertyListingsQuery: UseInfiniteQueryResult<

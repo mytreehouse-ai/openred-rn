@@ -1,9 +1,9 @@
-import React from "react";
-import { Tabs } from "expo-router";
-import Colors from "@/constants/Colors";
-import { useColorScheme } from "@/hooks/useColorScheme";
-import { useClientOnlyValue } from "@/hooks/useClientOnlyValue";
 import { Ionicons } from "@/components/Themed";
+import Colors from "@/constants/Colors";
+import { useClientOnlyValue } from "@/hooks/useClientOnlyValue";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { Tabs } from "expo-router";
+import React from "react";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();

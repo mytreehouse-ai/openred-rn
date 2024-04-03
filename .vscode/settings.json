@@ -1,9 +1,12 @@
 {
   "editor.tabSize": 2,
-	"editor.fontSize": 12,
+  "editor.fontSize": 12,
   "editor.detectIndentation": false,
   "editor.insertSpaces": false,
   "explorer.compactFolders": false,
   "editor.wordWrap": "on",
-  "chat.editor.wordWrap": "on"
+  "chat.editor.wordWrap": "on",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
 }

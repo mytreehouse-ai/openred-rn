@@ -1,21 +1,21 @@
+import { Ionicons } from "@/components/Themed";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import NetInfo from "@react-native-community/netinfo";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Constants from "expo-constants";
 import { useFonts } from "expo-font";
 import { Stack, useRouter } from "expo-router";
-import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
-import * as SplashScreen from "expo-splash-screen";
 import * as SecureStore from "expo-secure-store";
-import Constants from "expo-constants";
+import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { TouchableOpacity } from "react-native";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import NetInfo from "@react-native-community/netinfo";
-import { Ionicons } from "@/components/Themed";
 
 export {
   // Catch any errors thrown by the Layout component.

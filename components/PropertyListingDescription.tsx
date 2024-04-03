@@ -1,5 +1,4 @@
 import React from "react";
-import { Text, View } from "./Themed";
 import Markdown from "react-native-markdown-display";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import Colors from "@/constants/Colors";

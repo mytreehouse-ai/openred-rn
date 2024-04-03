@@ -1,4 +1,19 @@
-import React, { memo, useRef } from "react";
+import Colors from "@/constants/Colors";
+import { defaultStyle } from "@/constants/Styles";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
+import { Listing } from "@/interfaces/listing";
+import globalStateStore from "@/store";
+import {
+  BottomSheetFlatList,
+  BottomSheetFlatListMethods,
+} from "@gorhom/bottom-sheet";
+import { FlashList } from "@shopify/flash-list";
+import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
+import { Link } from "expo-router";
+import { MotiView } from "moti";
+import { Skeleton } from "moti/skeleton";
+import React, { memo, useEffect, useRef } from "react";
 import {
   Dimensions,
   Image,
@@ -7,23 +22,8 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import Colors from "@/constants/Colors";
 import { FadeInRight, FadeOutLeft } from "react-native-reanimated";
-import { Link } from "expo-router";
 import { AnimatedView, Ionicons, Text, View } from "./Themed";
-import { FlashList } from "@shopify/flash-list";
-import {
-  BottomSheetFlatList,
-  BottomSheetFlatListMethods,
-} from "@gorhom/bottom-sheet";
-import { Skeleton } from "moti/skeleton";
-import { defaultStyle } from "@/constants/Styles";
-import { MotiView } from "moti";
-import { useColorScheme } from "@/hooks/useColorScheme";
-import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
-import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
-import { Listing } from "@/interfaces/listing";
-import globalStateStore from "@/store";
 
 interface PropertyListingsProps {
   propertyListingsQuery: UseInfiniteQueryResult<
@@ -167,6 +167,16 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
     }
   }
 
+  useEffect(() => {
+    const offset = { offset: 0, animated: true };
+    if (Platform.OS === "ios") {
+      flashListRef.current?.scrollToOffset(offset);
+    }
+    if (Platform.OS === "android") {
+      flatListRef.current?.scrollToOffset(offset);
+    }
+  }, [store.filters.property_type]);
+
   const renderRow = ({ item }: { item: Listing }) => (
     <Link href={`/listing/${item.slug}`} asChild>
       <TouchableOpacity
@@ -214,7 +224,11 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
             }}
           >
             <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 2 }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 2,
+              }}
             >
               <Ionicons
                 name="location-outline"
@@ -230,7 +244,7 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
                 lightColor={Colors.light.text}
                 darkColor={Colors.dark.text}
               >
-                {item.estate.address || item.estate.city.name}
+                {item.estate.city.name}
               </Text>
             </View>
             <Text
@@ -322,8 +336,8 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
     return (
       <AnimatedView
         style={styles.listing}
-        entering={FadeInRight.delay(Platform.OS === "android" ? 100 : 0)}
-        exiting={FadeOutLeft.delay(Platform.OS === "android" ? 100 : 0)}
+        entering={FadeInRight}
+        exiting={FadeOutLeft}
       >
         <MotiView
           style={{ gap: 10 }}
