@@ -1,12 +1,12 @@
-import React from "react";
 import ExploreHeader from "@/components/ExploreHeader";
-import PropertyListingsRnMapView from "@/components/PropertyListingsRnMapView";
 import PropertyListingsBottomSheet from "@/components/PropertyListingsBottomSheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Stack } from "expo-router";
+import PropertyListingsRnMapView from "@/components/PropertyListingsRnMapView";
 import { defaultStyle } from "@/constants/Styles";
-import globalStateStore from "@/store";
 import { usePropertyListingsInfiniteQuery } from "@/hooks/usePropertyListingsInfinitieQuery";
+import globalStateStore from "@/store";
+import { Stack } from "expo-router";
+import React from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Explore = () => {
   const store = globalStateStore();

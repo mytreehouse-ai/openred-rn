@@ -16,7 +16,7 @@ type StoreData = {
 
 type StoreActions = {
   updateFilters: (filters: PartialPropertyListingFilters) => void;
-  setCurrentPropertyListingSelected: (listing: Listing) => void;
+  setCurrentPropertyListingSelected: (listing: Listing | null) => void;
 };
 
 const globalStateStore = create<StoreData & StoreActions>((set) => ({
@@ -24,7 +24,7 @@ const globalStateStore = create<StoreData & StoreActions>((set) => ({
   currentPropertyListingSelected: null,
   updateFilters: (filters: PartialPropertyListingFilters) =>
     set((state) => ({ filters: { ...state.filters, ...filters } })),
-  setCurrentPropertyListingSelected: (listing: Listing) =>
+  setCurrentPropertyListingSelected: (listing: Listing | null) =>
     set((state) => ({ currentPropertyListingSelected: listing })),
 }));
 

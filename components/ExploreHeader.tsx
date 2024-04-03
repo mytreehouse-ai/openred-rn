@@ -1,6 +1,10 @@
-import React, { useRef, useState } from "react";
-import { Text, View, SafeAreaView, Ionicons } from "./Themed";
+import { propertyTypes } from "@/assets/data/propertyTypes";
+import Colors from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import * as Haptics from "expo-haptics";
+import { useRouter } from "expo-router";
+import React, { useRef, useState } from "react";
 import {
   Platform,
   ScrollView,
@@ -8,11 +12,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import * as Haptics from "expo-haptics";
-import Colors from "@/constants/Colors";
-import { propertyTypes } from "@/assets/data/propertyTypes";
-import { useColorScheme } from "@/hooks/useColorScheme";
-import { useRouter } from "expo-router";
+import { Ionicons, SafeAreaView, Text, View } from "./Themed";
 
 interface ExploreHeaderProps {
   onPropertyTypeChange: (propertyType: string) => void;

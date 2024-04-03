@@ -1,6 +1,13 @@
-import { Dimensions, Share, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useLayoutEffect } from "react";
+import PropertyListingDescription from "@/components/PropertyListingDescription";
+import { AnimatedView, Ionicons, Text, View } from "@/components/Themed";
+import Colors from "@/constants/Colors";
+import { defaultStyle } from "@/constants/Styles";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { usePropertyListingQuery } from "@/hooks/usePropertyListingQuery";
+import globalStateStore from "@/store";
 import { useLocalSearchParams, useNavigation } from "expo-router";
+import React, { useEffect, useLayoutEffect } from "react";
+import { Dimensions, Share, StyleSheet, TouchableOpacity } from "react-native";
 import Animated, {
   Easing,
   SlideInDown,
@@ -9,13 +16,6 @@ import Animated, {
   useAnimatedStyle,
   useScrollViewOffset,
 } from "react-native-reanimated";
-import { AnimatedView, Ionicons, Text, View } from "@/components/Themed";
-import { defaultStyle } from "@/constants/Styles";
-import Colors from "@/constants/Colors";
-import { useColorScheme } from "@/hooks/useColorScheme";
-import globalStateStore from "@/store";
-import { usePropertyListingQuery } from "@/hooks/usePropertyListingQuery";
-import PropertyListingDescription from "@/components/PropertyListingDescription";
 
 const IMAGE_HEIGHT = 300;
 const { width } = Dimensions.get("window");
@@ -34,8 +34,13 @@ const PropertyListing = () => {
   );
 
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
-
   const scrollOffset = useScrollViewOffset(scrollRef);
+
+  useEffect(() => {
+    return () => {
+      store.setCurrentPropertyListingSelected(null);
+    };
+  }, []);
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
     return {
@@ -181,18 +186,17 @@ const PropertyListing = () => {
               gap: 5,
             }}
           >
-            <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}>
+            <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 18 }}>
               {propertyListing?.price_formatted}
             </Text>
             <View style={{ alignSelf: "flex-start" }}>
               <Text
                 style={{
                   fontFamily: "MontserratSemiBold",
-                  fontSize: 12,
-                  padding: 6,
-                  borderRadius: 5,
-                  borderWidth: StyleSheet.hairlineWidth,
+                  fontSize: 16,
                 }}
+                lightColor={Colors.light.text}
+                darkColor={Colors.dark.text}
               >
                 {propertyListing?.listing_type.description}
               </Text>

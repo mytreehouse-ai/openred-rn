@@ -1,8 +1,7 @@
-import React from "react";
-import { Text, View } from "./Themed";
-import Markdown from "react-native-markdown-display";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import Colors from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import React from "react";
+import Markdown from "react-native-markdown-display";
 
 interface PropertyListingDescriptionProps {
   description: string | null;
@@ -53,7 +52,7 @@ const PropertyListingDescription: React.FC<PropertyListingDescriptionProps> = ({
         },
       }}
     >
-      {description}
+      {description ? description : "No description 🫗"}
     </Markdown>
   );
 };

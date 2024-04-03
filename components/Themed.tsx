@@ -3,15 +3,15 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
+import Colors from "@/constants/Colors";
+import DefaultIonicons from "@expo/vector-icons/Ionicons";
 import {
+  SafeAreaView as DefaultSafeAreaView,
   Text as DefaultText,
   View as DefaultView,
-  SafeAreaView as DefaultSafeAreaView,
 } from "react-native";
-import Colors from "@/constants/Colors";
-import { useColorScheme } from "../hooks/useColorScheme";
 import Animated, { AnimatedProps } from "react-native-reanimated";
-import DefaultIonicons from "@expo/vector-icons/Ionicons";
+import { useColorScheme } from "../hooks/useColorScheme";
 
 type ThemeProps = {
   lightColor?: string;

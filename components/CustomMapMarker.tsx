@@ -1,9 +1,9 @@
+import Colors from "@/constants/Colors";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Marker } from "react-native-maps";
-import { AnimatedView, Text } from "./Themed";
-import Colors from "@/constants/Colors";
 import { FadeIn, FadeOut } from "react-native-reanimated";
+import { AnimatedView, Text } from "./Themed";
 
 interface CustomMapMarkerProps {
   id: string;

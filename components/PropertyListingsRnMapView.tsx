@@ -1,16 +1,16 @@
-import React from "react";
-import { Text, View } from "./Themed";
-import { PROVIDER_GOOGLE } from "react-native-maps";
-import MapView from "react-native-map-clustering";
-import { ActivityIndicator, Platform, StyleSheet } from "react-native";
-import { defaultStyle } from "@/constants/Styles";
-import { useRouter } from "expo-router";
-import CustomMapMarker from "./CustomMapMarker";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { mapDarkModeStyle } from "@/constants/MapStyle";
+import { defaultStyle } from "@/constants/Styles";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
 import { Listing } from "@/interfaces/listing";
 import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
-import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
+import { useRouter } from "expo-router";
+import React from "react";
+import { ActivityIndicator, Platform, StyleSheet } from "react-native";
+import MapView from "react-native-map-clustering";
+import { PROVIDER_GOOGLE } from "react-native-maps";
+import CustomMapMarker from "./CustomMapMarker";
+import { View } from "./Themed";
 
 interface PropertyListingsRnMapViewProps {
   propertyListingsQuery: UseInfiniteQueryResult<
@@ -52,7 +52,7 @@ const PropertyListingsRnMapView = ({
               await propertyListingsQuery.fetchNextPage();
             }, 2000);
         }}
-        minZoomLevel={6}
+        minZoomLevel={10}
         maxZoomLevel={20}
         initialRegion={{
           latitude: 14.5547,
