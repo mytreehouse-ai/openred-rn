@@ -1,8 +1,8 @@
 import React from "react";
-import { View } from "./Themed";
+import { Text, View } from "./Themed";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 import MapView from "react-native-map-clustering";
-import { Platform, StyleSheet } from "react-native";
+import { ActivityIndicator, Platform, StyleSheet } from "react-native";
 import { defaultStyle } from "@/constants/Styles";
 import { useRouter } from "expo-router";
 import CustomMapMarker from "./CustomMapMarker";
@@ -64,12 +64,27 @@ const PropertyListingsRnMapView = ({
             />
           ))}
       </MapView>
+      {isLoading && (
+        <View style={styles.loader}>
+          <ActivityIndicator size="large" />
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  map: {},
+  loader: {
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "transparent",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 100,
+  },
 });
 
 export default PropertyListingsRnMapView;
