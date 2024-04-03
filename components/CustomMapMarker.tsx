@@ -7,8 +7,6 @@ import Colors from "@/constants/Colors";
 interface CustomMapMarkerProps {
   id: string;
   price: string;
-  listingType: string;
-  propertyType: string;
   coordinate: {
     latitude: number;
     longitude: number;
@@ -19,8 +17,6 @@ interface CustomMapMarkerProps {
 const CustomMapMarker: React.FC<CustomMapMarkerProps> = ({
   id,
   price,
-  listingType,
-  propertyType,
   coordinate,
   onPress,
 }) => (
@@ -30,10 +26,13 @@ const CustomMapMarker: React.FC<CustomMapMarkerProps> = ({
     coordinate={coordinate}
     onPress={onPress}
   >
-    <View style={styles.marker}>
-      <Text style={styles.markerText}>{price}</Text>
-      <Text style={styles.markerText}>
-        {listingType} {propertyType}
+    <View
+      style={styles.marker}
+      lightColor={Colors.light.primary}
+      darkColor={Colors.dark.primary}
+    >
+      <Text style={[styles.markerText, { color: Colors.common.white }]}>
+        {price}
       </Text>
     </View>
   </Marker>
@@ -59,12 +58,10 @@ const styles = StyleSheet.create({
   markerText: {
     fontFamily: "MontserratBold",
     fontSize: 8,
-    color: "#fff",
   },
   marker: {
     padding: 6,
     borderRadius: 10,
-    backgroundColor: Colors.primary,
   },
 });
 

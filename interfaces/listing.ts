@@ -1,23 +1,16 @@
-export interface Listing {
-  id: number;
-  listing_title: string;
-  slug: string;
-  listing_url: string;
-  estate: Estate;
-  property_type: Propertytype;
-  listing_type: Propertytype;
-  property_status: Propertytype;
-  price: string;
-  price_formatted: string;
-  is_delisted: boolean;
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
 interface Propertytype {
   id: number;
   description: string;
+}
+
+type ListingType = Propertytype;
+
+type PropertyStatus = Propertytype;
+
+interface City {
+  id: number;
+  name: string;
+  slug: string;
 }
 
 interface Estate {
@@ -37,15 +30,26 @@ interface Estate {
   image_url: string | null;
   indoor_features: string[];
   outdoor_features: string[];
-  other_features: any[];
+  other_features: string[];
   description: string | null;
   markdown: string | null;
   created_at: string;
   updated_at: string;
 }
 
-interface City {
+export interface Listing {
   id: number;
-  name: string;
+  listing_title: string;
   slug: string;
+  listing_url: string;
+  estate: Estate;
+  property_type: Propertytype;
+  listing_type: ListingType;
+  property_status: PropertyStatus;
+  price: string;
+  price_formatted: string;
+  is_delisted: boolean;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
 }

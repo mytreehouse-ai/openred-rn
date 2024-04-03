@@ -5,6 +5,7 @@ module.exports = {
     owner: "openred",
     extra: {
       clerkPublishableKey: process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY,
+      djangoApiUrl: process.env.EXPO_PUBLIC_DJANGO_API_URL,
       eas: {
         projectId: "62cce75b-0345-4c66-b8a6-7803734ced0e",
       },

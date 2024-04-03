@@ -1,28 +1,35 @@
-import { propertyListings } from "@/assets/data/propertyListings";
+import React from "react";
 import ExploreHeader from "@/components/ExploreHeader";
-import ListingsMap from "@/components/ListingsMap";
-import ListingsBottomSheets from "@/components/ListingsBottomSheets";
+import PropertyListingsRnMapView from "@/components/PropertyListingsRnMapView";
+import PropertyListingsBottomSheet from "@/components/PropertyListingsBottomSheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Stack } from "expo-router";
-import React, { useMemo, useState } from "react";
+import { defaultStyle } from "@/constants/Styles";
+import globalStateStore from "@/store";
+import { usePropertyListingsInfiniteQuery } from "@/hooks/usePropertyListingsInfinitieQuery";
 
 const Explore = () => {
-  const [propertyType, setPropertyType] = useState("Warehouse");
-  const listings = useMemo(() => propertyListings, []);
+  const store = globalStateStore();
+
+  const propertyListingsQuery = usePropertyListingsInfiniteQuery(store.filters);
 
   const onDataChange = (propertyType: string) => {
-    setPropertyType(propertyType);
+    store.updateFilters({ property_type: propertyType });
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={defaultStyle.container}>
       <Stack.Screen
         options={{
           header: () => <ExploreHeader onPropertyTypeChange={onDataChange} />,
         }}
       />
-      <ListingsMap />
-      <ListingsBottomSheets propertyType={propertyType} listings={listings} />
+      <PropertyListingsRnMapView
+        propertyListingsQuery={propertyListingsQuery}
+      />
+      <PropertyListingsBottomSheet
+        propertyListingsQuery={propertyListingsQuery}
+      />
     </GestureHandlerRootView>
   );
 };

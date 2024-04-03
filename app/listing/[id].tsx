@@ -2,6 +2,7 @@ import { Dimensions, Share, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import Animated, {
+  Easing,
   SlideInDown,
   interpolate,
   useAnimatedRef,
@@ -9,24 +10,30 @@ import Animated, {
   useScrollViewOffset,
 } from "react-native-reanimated";
 import Markdown from "react-native-markdown-display";
-import { Text, View } from "@/components/Themed";
-import { propertyListings } from "@/assets/data/propertyListings";
-import { Listing } from "@/interfaces/listing";
+import { AnimatedView, Text, View } from "@/components/Themed";
 import { defaultStyle } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import globalStateStore from "@/store";
+import { usePropertyListingQuery } from "@/hooks/usePropertyListingQuery";
 
 const IMAGE_HEIGHT = 300;
 const { width } = Dimensions.get("window");
 const PROPERTY_IMAGE_PLACEHOLDER =
   "https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
-const Page = () => {
+const PropertyListing = () => {
+  const colorScheme = useColorScheme();
   const { id } = useLocalSearchParams<{ id: string }>();
   const navigation = useNavigation();
-  const listing: Listing = propertyListings.find(
-    (item) => item.id === Number(id)
-  ) as Listing;
+  const store = globalStateStore();
+
+  const { data: propertyListing } = usePropertyListingQuery(
+    id,
+    store.currentPropertyListingSelected
+  );
+
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
 
   const scrollOffset = useScrollViewOffset(scrollRef);
@@ -55,7 +62,7 @@ const Page = () => {
   const shareListing = async () => {
     try {
       await Share.share({
-        message: `Check out this listing on Rentalz: ${listing.listing_url}`,
+        message: `Check out this listing on Rentalz: ${propertyListing?.listing_url}`,
       });
     } catch (error) {
       console.error(error);
@@ -71,24 +78,36 @@ const Page = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerBackground: () => (
-        <Animated.View style={[headerAnimatedStyle, styles.header]} />
+        <AnimatedView style={[headerAnimatedStyle, styles.header]} />
       ),
       headerRight: () => (
         <View style={styles.bar}>
-          <TouchableOpacity style={styles.barRoundBtn} onPress={shareListing}>
-            <Ionicons name="share-outline" size={22} color={Colors.gray900} />
+          <TouchableOpacity style={[styles.barRoundBtn]} onPress={shareListing}>
+            <Ionicons
+              name="share-outline"
+              size={22}
+              color={Colors.common.gray["900"]}
+            />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.barRoundBtn}>
-            <Ionicons name="heart-outline" size={22} color={Colors.gray900} />
+          <TouchableOpacity style={[styles.barRoundBtn]}>
+            <Ionicons
+              name="heart-outline"
+              size={22}
+              color={Colors.common.gray["900"]}
+            />
           </TouchableOpacity>
         </View>
       ),
       headerLeft: () => (
         <TouchableOpacity
-          style={styles.barRoundBtn}
+          style={[styles.barRoundBtn]}
           onPress={navigation.goBack}
         >
-          <Ionicons name="arrow-back" size={22} color={Colors.gray900} />
+          <Ionicons
+            name="arrow-back"
+            size={22}
+            color={Colors.common.gray["900"]}
+          />
         </TouchableOpacity>
       ),
     });
@@ -103,7 +122,8 @@ const Page = () => {
       >
         <Animated.Image
           source={{
-            uri: listing.estate.image_url ?? PROPERTY_IMAGE_PLACEHOLDER,
+            uri:
+              propertyListing?.estate.image_url ?? PROPERTY_IMAGE_PLACEHOLDER,
           }}
           style={[styles.image, imageAnimatedStyle]}
         />
@@ -114,7 +134,7 @@ const Page = () => {
               fontSize: 18,
             }}
           >
-            {listing.listing_title}
+            {propertyListing?.listing_title}
           </Text>
           <Text
             style={{
@@ -122,13 +142,18 @@ const Page = () => {
               fontSize: 14,
             }}
           >
-            {listing.estate.address || listing.estate.city.name}
+            {propertyListing?.estate.address ||
+              propertyListing?.estate.city.name}
           </Text>
           <Markdown
             style={{
               body: {
                 fontFamily: "Montserrat",
-                fontSize: 12, // Reduced font size for body
+                fontSize: 12,
+                color:
+                  colorScheme === "light"
+                    ? Colors.light.text
+                    : Colors.dark.text,
               },
               heading1: {
                 fontFamily: "MontserratBold",
@@ -162,13 +187,14 @@ const Page = () => {
               },
             }}
           >
-            {listing.estate.markdown || listing.estate.description}
+            {propertyListing?.estate.markdown ||
+              propertyListing?.estate.description}
           </Markdown>
         </View>
       </Animated.ScrollView>
-      <Animated.View
+      <AnimatedView
         style={defaultStyle.footer}
-        entering={SlideInDown.delay(200)}
+        entering={SlideInDown.duration(1000).easing(Easing.out(Easing.cubic))}
       >
         <View
           style={{
@@ -185,7 +211,7 @@ const Page = () => {
             }}
           >
             <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}>
-              {listing.price_formatted}
+              {propertyListing?.price_formatted}
             </Text>
             <View style={{ alignSelf: "flex-start" }}>
               <Text
@@ -197,17 +223,26 @@ const Page = () => {
                   borderWidth: StyleSheet.hairlineWidth,
                 }}
               >
-                {listing.listing_type.description}
+                {propertyListing?.listing_type.description}
               </Text>
             </View>
           </View>
           <TouchableOpacity
-            style={[defaultStyle.btn, { paddingHorizontal: 20 }]}
+            style={[
+              defaultStyle.btn,
+              {
+                paddingHorizontal: 20,
+                backgroundColor:
+                  colorScheme === "light"
+                    ? Colors.light.primary
+                    : Colors.dark.primary,
+              },
+            ]}
           >
             <Text style={defaultStyle.btnText}>Inquire now</Text>
           </TouchableOpacity>
         </View>
-      </Animated.View>
+      </AnimatedView>
     </View>
   );
 };
@@ -215,12 +250,10 @@ const Page = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
   },
   header: {
-    backgroundColor: "#fff",
     height: 100,
-    borderBottomColor: Colors.gray500,
+    borderBottomColor: Colors.common.gray["500"],
     borderWidth: StyleSheet.hairlineWidth,
   },
   image: {
@@ -237,14 +270,13 @@ const styles = StyleSheet.create({
   barRoundBtn: {
     width: 40,
     height: 40,
+    backgroundColor: Colors.common.white,
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 20,
-    borderColor: Colors.gray500,
-    backgroundColor: "#fff",
+    borderColor: Colors.common.gray["500"],
     alignItems: "center",
     justifyContent: "center",
-    color: Colors.primary,
   },
 });
 
-export default Page;
+export default PropertyListing;

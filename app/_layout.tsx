@@ -11,10 +11,11 @@ import * as SplashScreen from "expo-splash-screen";
 import * as SecureStore from "expo-secure-store";
 import Constants from "expo-constants";
 import { useEffect } from "react";
-
-import { useColorScheme } from "@/components/useColorScheme";
+import { useColorScheme } from "@/hooks/useColorScheme";
 import { TouchableOpacity } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import NetInfo from "@react-native-community/netinfo";
+import { Ionicons } from "@/components/Themed";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,6 +47,8 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
+  const queryClient = new QueryClient();
+
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
@@ -66,7 +69,9 @@ export default function RootLayout() {
       publishableKey={Constants.expoConfig?.extra?.clerkPublishableKey ?? ""}
       tokenCache={tokenCache}
     >
-      <RootLayoutNav />
+      <QueryClientProvider client={queryClient}>
+        <RootLayoutNav />
+      </QueryClientProvider>
     </ClerkProvider>
   );
 }
@@ -75,6 +80,16 @@ function RootLayoutNav() {
   const router = useRouter();
   const { isLoaded, isSignedIn } = useAuth();
   const colorScheme = useColorScheme();
+
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
+      const connected = state.isConnected;
+      const _connectionType = state.type;
+      !connected ? alert("No Internet Connection!") : null;
+    });
+
+    return () => removeNetInfoSubscription();
+  }, []);
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
