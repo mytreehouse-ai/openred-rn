@@ -161,7 +161,7 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
     fetchNextPage,
   } = propertyListingsQuery;
 
-  function loadMore() {
+  function loadMorePropertyListings() {
     if (!isLoading || !isFetching) {
       fetchNextPage();
     }
@@ -216,7 +216,12 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
             <View
               style={{ flexDirection: "row", alignItems: "center", gap: 2 }}
             >
-              <Ionicons name="location-outline" size={24} />
+              <Ionicons
+                name="location-outline"
+                size={24}
+                lightColor={Colors.light.primary}
+                darkColor={Colors.dark.primary}
+              />
               <Text
                 style={{
                   fontFamily: "MontserratSemiBold",
@@ -225,7 +230,7 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
                 lightColor={Colors.light.text}
                 darkColor={Colors.dark.text}
               >
-                {item.estate.city.name}
+                {item.estate.address || item.estate.city.name}
               </Text>
             </View>
             <Text
@@ -381,7 +386,7 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
             estimatedItemSize={200}
             renderItem={isLoading ? renderRowForLoading : renderRow}
             showsVerticalScrollIndicator={false}
-            onScrollEndDrag={loadMore}
+            onScrollEndDrag={loadMorePropertyListings}
             ListHeaderComponent={
               isLoading ? (
                 <MotiView
@@ -425,7 +430,7 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
           renderItem={flatListRenderRow}
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={false}
-          onScrollEndDrag={loadMore}
+          onScrollEndDrag={loadMorePropertyListings}
           ListHeaderComponent={
             <View style={{ alignItems: "center" }}>
               <Text

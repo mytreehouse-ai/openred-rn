@@ -132,7 +132,7 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
-          name="listing/[id]"
+          name="listing/[slug]"
           options={{
             headerTitle: "",
             headerTransparent: true,
