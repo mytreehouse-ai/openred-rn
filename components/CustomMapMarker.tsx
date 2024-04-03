@@ -1,8 +1,9 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Marker } from "react-native-maps";
-import { Text, View } from "./Themed";
+import { AnimatedView, Text } from "./Themed";
 import Colors from "@/constants/Colors";
+import { FadeIn, FadeOut } from "react-native-reanimated";
 
 interface CustomMapMarkerProps {
   id: string;
@@ -26,15 +27,17 @@ const CustomMapMarker: React.FC<CustomMapMarkerProps> = ({
     coordinate={coordinate}
     onPress={onPress}
   >
-    <View
+    <AnimatedView
       style={styles.marker}
       lightColor={Colors.light.primary}
       darkColor={Colors.dark.primary}
+      entering={FadeIn.duration(500)}
+      exiting={FadeOut.duration(500)}
     >
       <Text style={[styles.markerText, { color: Colors.common.white }]}>
         {price}
       </Text>
-    </View>
+    </AnimatedView>
   </Marker>
 );
 

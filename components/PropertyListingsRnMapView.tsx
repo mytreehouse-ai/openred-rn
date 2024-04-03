@@ -27,7 +27,7 @@ const PropertyListingsRnMapView = ({
 
   const {
     isLoading,
-    isPending,
+    isFetchingNextPage,
     data: propertyListings,
   } = propertyListingsQuery;
 
@@ -43,8 +43,15 @@ const PropertyListingsRnMapView = ({
         zoomEnabled={true}
         zoomTapEnabled={false}
         showsUserLocation={true}
+        moveOnMarkerPress={false}
         showsMyLocationButton={true}
         clusterFontFamily="MontserratSemiBold"
+        onRegionChangeComplete={({ longitude, latitude }) => {
+          !isFetchingNextPage &&
+            setTimeout(async () => {
+              await propertyListingsQuery.fetchNextPage();
+            }, 2000);
+        }}
         minZoomLevel={6}
         maxZoomLevel={20}
         initialRegion={{
@@ -68,12 +75,12 @@ const PropertyListingsRnMapView = ({
                   latitude: listing.estate.latitude,
                   longitude: listing.estate.longitude,
                 }}
-                onPress={() => router.push(`/listing/${listing.id}`)}
+                onPress={() => router.push(`/listing/${listing.slug}`)}
               />
             ))
         )}
       </MapView>
-      {(isLoading || isPending) && (
+      {isLoading && (
         <View style={styles.loader}>
           <ActivityIndicator size="large" />
         </View>

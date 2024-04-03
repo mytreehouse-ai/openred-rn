@@ -9,14 +9,13 @@ import Animated, {
   useAnimatedStyle,
   useScrollViewOffset,
 } from "react-native-reanimated";
-import Markdown from "react-native-markdown-display";
-import { AnimatedView, Text, View } from "@/components/Themed";
+import { AnimatedView, Ionicons, Text, View } from "@/components/Themed";
 import { defaultStyle } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import globalStateStore from "@/store";
 import { usePropertyListingQuery } from "@/hooks/usePropertyListingQuery";
+import PropertyListingDescription from "@/components/PropertyListingDescription";
 
 const IMAGE_HEIGHT = 300;
 const { width } = Dimensions.get("window");
@@ -25,12 +24,12 @@ const PROPERTY_IMAGE_PLACEHOLDER =
 
 const PropertyListing = () => {
   const colorScheme = useColorScheme();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { slug } = useLocalSearchParams<{ slug: string }>();
   const navigation = useNavigation();
   const store = globalStateStore();
 
   const { data: propertyListing } = usePropertyListingQuery(
-    id,
+    slug,
     store.currentPropertyListingSelected
   );
 
@@ -127,7 +126,7 @@ const PropertyListing = () => {
           }}
           style={[styles.image, imageAnimatedStyle]}
         />
-        <View style={{ padding: 16, gap: 8 }}>
+        <View style={{ padding: 16, gap: 14 }}>
           <Text
             style={{
               fontFamily: "MontserratBold",
@@ -136,60 +135,32 @@ const PropertyListing = () => {
           >
             {propertyListing?.listing_title}
           </Text>
-          <Text
-            style={{
-              fontFamily: "MontserratSemiBold",
-              fontSize: 14,
-            }}
-          >
-            {propertyListing?.estate.address ||
-              propertyListing?.estate.city.name}
-          </Text>
-          <Markdown
-            style={{
-              body: {
-                fontFamily: "Montserrat",
-                fontSize: 12,
-                color:
-                  colorScheme === "light"
-                    ? Colors.light.text
-                    : Colors.dark.text,
-              },
-              heading1: {
-                fontFamily: "MontserratBold",
-                fontSize: 15,
-                marginBottom: 4,
-              },
-              heading2: {
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 2 }}>
+            <Ionicons
+              name="location-outline"
+              size={24}
+              lightColor={Colors.light.primary}
+              darkColor={Colors.dark.primary}
+            />
+            <Text
+              style={{
                 fontFamily: "MontserratSemiBold",
-                fontSize: 14,
-                marginBottom: 4,
-              },
-              heading3: {
-                fontFamily: "MontserratSemiBold",
-                fontSize: 12.6,
-                marginBottom: 4,
-              },
-              heading4: {
-                fontFamily: "MontserratSemiBold",
-                fontSize: 11.2,
-                marginBottom: 4,
-              },
-              heading5: {
-                fontFamily: "MontserratSemiBold",
-                fontSize: 9.8,
-                marginBottom: 4,
-              },
-              heading6: {
-                fontFamily: "MontserratSemiBold",
-                fontSize: 8.4,
-                marginBottom: 4,
-              },
-            }}
-          >
-            {propertyListing?.estate.markdown ||
-              propertyListing?.estate.description}
-          </Markdown>
+                fontSize: 16,
+              }}
+              lightColor={Colors.light.text}
+              darkColor={Colors.dark.text}
+            >
+              {propertyListing?.estate.address ||
+                propertyListing?.estate.city.name}
+            </Text>
+          </View>
+          <PropertyListingDescription
+            description={
+              propertyListing?.estate.markdown ||
+              propertyListing?.estate.description ||
+              null
+            }
+          />
         </View>
       </Animated.ScrollView>
       <AnimatedView
