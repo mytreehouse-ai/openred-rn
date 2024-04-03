@@ -1,12 +1,18 @@
-import React from "react";
 import { Ionicons, Text, View } from "@/components/Themed";
-import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
-import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import { defaultStyle } from "@/constants/Styles";
-import { useOAuth } from "@clerk/clerk-expo";
-import { useRouter } from "expo-router";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import Colors from "@/constants/Colors";
+import { defaultStyle } from "@/constants/Styles";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
+import { useOAuth } from "@clerk/clerk-expo";
+import { makeRedirectUri } from "expo-auth-session";
+import { useRouter } from "expo-router";
+import React from "react";
+import {
+  Platform,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 
 enum Strategy {
   Google = "oauth_google",
@@ -15,12 +21,19 @@ enum Strategy {
 }
 
 const Login = () => {
-  useWarmUpBrowser();
   const colorScheme = useColorScheme();
+  const redirectUri = makeRedirectUri();
   const router = useRouter();
 
-  const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
-  const { startOAuthFlow: appleAuth } = useOAuth({ strategy: "oauth_apple" });
+  useWarmUpBrowser();
+
+  const { startOAuthFlow: googleAuth } = useOAuth({
+    strategy: "oauth_google",
+    redirectUrl: Platform.OS === "android" ? redirectUri : undefined,
+  });
+  const { startOAuthFlow: appleAuth } = useOAuth({
+    strategy: "oauth_apple",
+  });
   const { startOAuthFlow: facebookAuth } = useOAuth({
     strategy: "oauth_facebook",
   });
@@ -38,7 +51,7 @@ const Login = () => {
       if (createdSessionId) {
         setActive!({ session: createdSessionId });
 
-        router.back();
+        Platform.OS === "ios" ? router.back() : null;
       }
     } catch (error) {
       console.error(error);

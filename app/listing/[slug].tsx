@@ -6,7 +6,7 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { usePropertyListingQuery } from "@/hooks/usePropertyListingQuery";
 import globalStateStore from "@/store";
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Dimensions, Share, StyleSheet, TouchableOpacity } from "react-native";
 import Animated, {
   Easing,
@@ -34,8 +34,13 @@ const PropertyListing = () => {
   );
 
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
-
   const scrollOffset = useScrollViewOffset(scrollRef);
+
+  useEffect(() => {
+    return () => {
+      store.setCurrentPropertyListingSelected(null);
+    };
+  }, []);
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
     return {
@@ -181,18 +186,17 @@ const PropertyListing = () => {
               gap: 5,
             }}
           >
-            <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}>
+            <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 18 }}>
               {propertyListing?.price_formatted}
             </Text>
             <View style={{ alignSelf: "flex-start" }}>
               <Text
                 style={{
                   fontFamily: "MontserratSemiBold",
-                  fontSize: 12,
-                  padding: 6,
-                  borderRadius: 5,
-                  borderWidth: StyleSheet.hairlineWidth,
+                  fontSize: 16,
                 }}
+                lightColor={Colors.light.text}
+                darkColor={Colors.dark.text}
               >
                 {propertyListing?.listing_type.description}
               </Text>
