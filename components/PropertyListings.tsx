@@ -20,13 +20,16 @@ import { Skeleton } from "moti/skeleton";
 import { defaultStyle } from "@/constants/Styles";
 import { MotiView } from "moti";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { UseQueryResult } from "@tanstack/react-query";
+import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
 import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
 import { Listing } from "@/interfaces/listing";
+import globalStateStore from "@/store";
 
 interface PropertyListingsProps {
-  propertyListingsQuery: UseQueryResult<ApiBaseResponse<Listing[]>, Error>;
-  refresh: number;
+  propertyListingsQuery: UseInfiniteQueryResult<
+    InfiniteData<ApiBaseResponse<Listing[]>, unknown>,
+    Error
+  >;
 }
 
 const IMAGE_HEIGHT = 300;
@@ -145,31 +148,32 @@ const dummyPropertyListingsData = [
 
 const PropertyListings: React.FC<PropertyListingsProps> = ({
   propertyListingsQuery,
-  refresh,
 }) => {
   const colorScheme = useColorScheme();
   const flashListRef = useRef<FlashList<any>>(null);
   const flatListRef = useRef<BottomSheetFlatListMethods>(null);
+  const store = globalStateStore();
 
-  const { isLoading, data: listings } = propertyListingsQuery;
+  const {
+    isLoading,
+    isFetching,
+    data: listings,
+    fetchNextPage,
+  } = propertyListingsQuery;
 
-  useEffect(() => {
-    if (refresh) {
-      if (Platform.OS === "ios") {
-        flashListRef.current?.scrollToOffset({ offset: 0, animated: true });
-      } else if (Platform.OS === "android") {
-        flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
-      }
+  function loadMore() {
+    if (!isLoading || !isFetching) {
+      fetchNextPage();
     }
-  }, [refresh]);
+  }
 
   const renderRow = ({ item }: { item: Listing }) => (
     <Link href={`/listing/${item.id}`} asChild>
       <TouchableOpacity activeOpacity={0.8}>
         <AnimatedView
           style={styles.listing}
-          entering={FadeInRight.delay(Platform.OS === "android" ? 100 : 0)}
-          exiting={FadeOutLeft.delay(Platform.OS === "android" ? 100 : 0)}
+          entering={FadeInRight}
+          exiting={FadeOutLeft}
         >
           <Image
             source={{
@@ -353,10 +357,16 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
         >
           <FlashList
             ref={flashListRef}
-            data={isLoading ? dummyPropertyListingsData : listings?.results}
+            data={
+              isLoading
+                ? dummyPropertyListingsData
+                : listings?.pages.map((page) => page.results).flat()
+            }
             keyExtractor={(item) => item.id.toString()}
             estimatedItemSize={200}
             renderItem={isLoading ? renderRowForLoading : renderRow}
+            showsVerticalScrollIndicator={false}
+            onScrollEndDrag={loadMore}
             ListHeaderComponent={
               isLoading ? (
                 <MotiView
@@ -380,7 +390,8 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
                     lightColor={Colors.light.text}
                     darkColor={Colors.dark.text}
                   >
-                    {listings?.results.length} {"hehehe"}
+                    {listings?.pages.map((page) => page.results).flat().length}{" "}
+                    {store.filters.property_type}
                   </Text>
                 </View>
               )
@@ -390,10 +401,16 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
       ) : (
         <BottomSheetFlatList
           ref={flatListRef}
-          data={isLoading ? dummyPropertyListingsData : listings?.results}
+          data={
+            isLoading
+              ? dummyPropertyListingsData
+              : listings?.pages.map((page) => page.results).flat()
+          }
           initialNumToRender={15}
           renderItem={flatListRenderRow}
           keyExtractor={(item) => item.id.toString()}
+          showsVerticalScrollIndicator={false}
+          onScrollEndDrag={loadMore}
           ListHeaderComponent={
             <View style={{ alignItems: "center" }}>
               <Text
@@ -401,7 +418,8 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
                 lightColor={Colors.light.text}
                 darkColor={Colors.dark.text}
               >
-                {listings?.results.length} {"hehehe"}
+                {listings?.pages.map((page) => page.results).flat().length}{" "}
+                {store.filters.property_type}
               </Text>
             </View>
           }

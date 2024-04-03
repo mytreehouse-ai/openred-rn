@@ -5,12 +5,15 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { Listing } from "@/interfaces/listing";
 import Colors from "@/constants/Colors";
 import { Platform, StyleSheet, TouchableOpacity } from "react-native";
-import { UseQueryResult } from "@tanstack/react-query";
+import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
 import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
 import PropertyListings from "./PropertyListings";
 
 interface PropertyListingsBottomSheetsProp {
-  propertyListingsQuery: UseQueryResult<ApiBaseResponse<Listing[]>, Error>;
+  propertyListingsQuery: UseInfiniteQueryResult<
+    InfiniteData<ApiBaseResponse<Listing[]>, unknown>,
+    Error
+  >;
 }
 
 const PropertyListingsBottomSheet: React.FC<
@@ -24,11 +27,9 @@ const PropertyListingsBottomSheet: React.FC<
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPointFirstIndex = Platform.OS === "ios" ? "8%" : "9%";
   const snapPoints = useMemo(() => [snapPointFirstIndex, "99%"], []);
-  const [refresh, setRefresh] = useState(0);
 
   const handleOnCollapse = () => {
     bottomSheetRef.current?.collapse();
-    setRefresh(refresh + 1);
   };
 
   return (
@@ -44,10 +45,7 @@ const PropertyListingsBottomSheet: React.FC<
       backgroundStyle={{ backgroundColor: backgroundColor }}
       style={styles.sheetContainer}
     >
-      <PropertyListings
-        propertyListingsQuery={propertyListingsQuery}
-        refresh={refresh}
-      />
+      <PropertyListings propertyListingsQuery={propertyListingsQuery} />
       <View style={styles.absoluteBtn}>
         <TouchableOpacity
           style={[

@@ -4,7 +4,8 @@ import { create } from "zustand";
 type PartialPropertyListingFilters = Partial<PropertyListingFilters>;
 
 const propertyListingFilterInitialState: PartialPropertyListingFilters = {
-  page_size: 100,
+  property_type: "Warehouse",
+  page_size: 5,
 };
 
 type StoreData = {

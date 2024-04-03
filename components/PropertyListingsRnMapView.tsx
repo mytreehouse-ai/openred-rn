@@ -9,11 +9,14 @@ import CustomMapMarker from "./CustomMapMarker";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { mapDarkModeStyle } from "@/constants/MapStyle";
 import { Listing } from "@/interfaces/listing";
-import { UseQueryResult } from "@tanstack/react-query";
+import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
 import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
 
 interface PropertyListingsRnMapViewProps {
-  propertyListingsQuery: UseQueryResult<ApiBaseResponse<Listing[]>, Error>;
+  propertyListingsQuery: UseInfiniteQueryResult<
+    InfiniteData<ApiBaseResponse<Listing[]>, unknown>,
+    Error
+  >;
 }
 
 const PropertyListingsRnMapView = ({
@@ -22,7 +25,11 @@ const PropertyListingsRnMapView = ({
   const router = useRouter();
   const colorScheme = useColorScheme();
 
-  const { isLoading, data: propertyListings } = propertyListingsQuery;
+  const {
+    isLoading,
+    isPending,
+    data: propertyListings,
+  } = propertyListingsQuery;
 
   return (
     <View style={defaultStyle.container}>
@@ -47,24 +54,26 @@ const PropertyListingsRnMapView = ({
           longitudeDelta: 0.005,
         }}
       >
-        {propertyListings?.results
-          .filter(
-            (listing) => listing.estate.latitude && listing.estate.longitude
-          )
-          .map((listing) => (
-            <CustomMapMarker
-              key={listing.id}
-              id={String(listing.id)}
-              price={listing.price_formatted}
-              coordinate={{
-                latitude: listing.estate.latitude,
-                longitude: listing.estate.longitude,
-              }}
-              onPress={() => router.push(`/listing/${listing.id}`)}
-            />
-          ))}
+        {propertyListings?.pages.flatMap((page) =>
+          page.results
+            .filter(
+              (listing) => listing.estate.latitude && listing.estate.longitude
+            )
+            .map((listing) => (
+              <CustomMapMarker
+                key={listing.id}
+                id={String(listing.id)}
+                price={listing.price_formatted}
+                coordinate={{
+                  latitude: listing.estate.latitude,
+                  longitude: listing.estate.longitude,
+                }}
+                onPress={() => router.push(`/listing/${listing.id}`)}
+              />
+            ))
+        )}
       </MapView>
-      {isLoading && (
+      {(isLoading || isPending) && (
         <View style={styles.loader}>
           <ActivityIndicator size="large" />
         </View>

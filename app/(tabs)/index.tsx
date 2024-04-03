@@ -5,13 +5,13 @@ import PropertyListingsBottomSheet from "@/components/PropertyListingsBottomShee
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Stack } from "expo-router";
 import { defaultStyle } from "@/constants/Styles";
-import { usePropertyListingsQuery } from "@/hooks/usePropertyListingsQuery";
 import globalStateStore from "@/store";
+import { usePropertyListingsInfiniteQuery } from "@/hooks/usePropertyListingsInfinitieQuery";
 
 const Explore = () => {
   const store = globalStateStore();
 
-  const propertyListingsQuery = usePropertyListingsQuery(store.filters);
+  const propertyListingsQuery = usePropertyListingsInfiniteQuery(store.filters);
 
   const onDataChange = (propertyType: string) => {
     store.updateFilters({ property_type: propertyType });
