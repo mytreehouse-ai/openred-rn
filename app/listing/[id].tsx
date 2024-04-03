@@ -15,8 +15,8 @@ import { defaultStyle } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { usePropertyListingsQuery } from "@/hooks/usePropertyListingsQuery";
 import globalStateStore from "@/store";
+import { usePropertyListingQuery } from "@/hooks/usePropertyListingQuery";
 
 const IMAGE_HEIGHT = 300;
 const { width } = Dimensions.get("window");
@@ -29,11 +29,9 @@ const PropertyListing = () => {
   const navigation = useNavigation();
   const store = globalStateStore();
 
-  const { data: propertyListings, isLoading } = usePropertyListingsQuery(
-    store.filters
-  );
-  const propertyListing = propertyListings?.results.find(
-    (item) => item.id === Number(id)
+  const { data: propertyListing } = usePropertyListingQuery(
+    id,
+    store.currentPropertyListingSelected
   );
 
   const scrollRef = useAnimatedRef<Animated.ScrollView>();

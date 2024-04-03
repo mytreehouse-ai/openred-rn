@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useRef } from "react";
 import {
   Dimensions,
   Image,
@@ -168,8 +168,11 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
   }
 
   const renderRow = ({ item }: { item: Listing }) => (
-    <Link href={`/listing/${item.id}`} asChild>
-      <TouchableOpacity activeOpacity={0.8}>
+    <Link href={`/listing/${item.slug}`} asChild>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => store.setCurrentPropertyListingSelected(item)}
+      >
         <AnimatedView
           style={styles.listing}
           entering={FadeInRight}
