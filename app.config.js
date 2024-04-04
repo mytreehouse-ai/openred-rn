@@ -26,8 +26,8 @@ module.exports = {
       supportsTablet: false,
     },
     android: {
+      package: "com.openred",
       adaptiveIcon: {
-        package: "com.openred",
         foregroundImage: "./assets/images/adaptive-icon.png",
         backgroundColor: "#ffffff",
       },

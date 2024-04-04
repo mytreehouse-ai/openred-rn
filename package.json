@@ -3,8 +3,10 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start --dev-client",
     "android": "expo start --android",
+    "eas-build-ios-dev": "eas build -p ios --profile development",
+    "eas-build-android-dev": "eas build -p android --profile development",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll"
@@ -24,6 +26,7 @@
     "expo-auth-session": "~5.4.0",
     "expo-blur": "~12.9.2",
     "expo-constants": "~15.4.5",
+    "expo-dev-client": "~3.3.11",
     "expo-font": "~11.10.3",
     "expo-haptics": "~12.8.1",
     "expo-image-picker": "~14.7.1",
