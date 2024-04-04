@@ -205,14 +205,7 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
             source={{ uri: item.estate.image_url! }}
             style={styles.image}
           />
-          <Text
-            style={{
-              fontFamily: "MontserratBold",
-              fontSize: 16,
-            }}
-            lightColor={Colors.light.text}
-            darkColor={Colors.dark.text}
-          >
+          <Text weight="semiBold" fontSize={16}>
             {item.listing_title}
           </Text>
           <View
@@ -235,25 +228,11 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
                 lightColor={Colors.light.primary}
                 darkColor={Colors.dark.primary}
               />
-              <Text
-                style={{
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: 16,
-                }}
-                lightColor={Colors.light.text}
-                darkColor={Colors.dark.text}
-              >
+              <Text weight="semiBold" fontSize={16}>
                 {item.estate.city.name}
               </Text>
             </View>
-            <Text
-              style={{
-                fontFamily: "MontserratSemiBold",
-                fontSize: 16,
-              }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
+            <Text weight="semiBold" fontSize={16}>
               {item.price_formatted}
             </Text>
           </View>
@@ -271,15 +250,15 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
               style={{
                 padding: 5,
                 borderRadius: 5,
+                alignItems: "center",
               }}
               lightColor={Colors.light.primary}
               darkColor={Colors.dark.primary}
             >
               <Text
+                weight="semiBold"
                 style={{
-                  fontFamily: "MontserratBold",
                   color: Colors.common.white,
-                  fontSize: 14,
                 }}
               >
                 {item.listing_type.description}
@@ -301,13 +280,7 @@ const PropertyListings: React.FC<PropertyListingsProps> = ({
                 size={20}
                 color={Colors.common.white}
               />
-              <Text
-                style={{
-                  fontFamily: "MontserratBold",
-                  color: Colors.common.white,
-                  fontSize: 14,
-                }}
-              >
+              <Text weight="semiBold" style={{ color: Colors.common.white }}>
                 {item.property_type.description === "Warehouse" &&
                   item.estate.building_size}
                 {["Condominium", "House", "Apartment", "Land"].includes(

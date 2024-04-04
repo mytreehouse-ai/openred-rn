@@ -64,25 +64,11 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
           onPress={() => router.push("/(modals)/booking")}
         >
           <Ionicons name="search-outline" size={30} />
-          <View
-            style={{
-              backgroundColor: "transparent",
-            }}
-          >
-            <Text
-              style={{ fontFamily: "MontserratSemiBold", fontSize: 14 }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
+          <View style={{ backgroundColor: "transparent" }}>
+            <Text weight="semiBold" fontSize={14}>
               Looking for a specific property?
             </Text>
-            <Text
-              style={{ fontFamily: "Montserrat" }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
-              Customize your search!
-            </Text>
+            <Text>Customize your search!</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -173,17 +159,7 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
                   : Colors.light.tabIconDefault
               }
             />
-            <Text
-              style={
-                activeIndex === index
-                  ? styles.propertyTypeItemTextActive
-                  : styles.propertyTypeItemText
-              }
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
-              {property.name}
-            </Text>
+            <Text weight="semiBold">{property.name}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -227,14 +203,6 @@ const styles = StyleSheet.create({
       width: 1,
       height: 1,
     },
-  },
-  propertyTypeItemText: {
-    fontFamily: "MontserratSemiBold",
-    fontSize: 14,
-  },
-  propertyTypeItemTextActive: {
-    fontFamily: "MontserratSemiBold",
-    fontSize: 14,
   },
   propertyTypesBtn: {
     alignItems: "center",

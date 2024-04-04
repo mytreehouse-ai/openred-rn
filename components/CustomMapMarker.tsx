@@ -34,7 +34,7 @@ const CustomMapMarker: React.FC<CustomMapMarkerProps> = ({
       entering={FadeIn.duration(500)}
       exiting={FadeOut.duration(500)}
     >
-      <Text style={[styles.markerText, { color: Colors.common.white }]}>
+      <Text weight="bold" fontSize={12} style={{ color: Colors.common.white }}>
         {price}
       </Text>
     </AnimatedView>
@@ -58,10 +58,6 @@ const areEqual = (prevProps: AreEqualProps, nextProps: AreEqualProps) => {
 };
 
 const styles = StyleSheet.create({
-  markerText: {
-    fontFamily: "MontserratBold",
-    fontSize: 8,
-  },
   marker: {
     padding: 6,
     borderRadius: 10,

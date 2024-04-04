@@ -118,11 +118,7 @@ const PropertyListingFilterHeader = () => {
           >
             <Ionicons name="close-outline" size={24} />
           </TouchableOpacity>
-          <Text
-            style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}
-            lightColor={Colors.light.text}
-            darkColor={Colors.dark.text}
-          >
+          <Text weight="semiBold" fontSize={16}>
             Customize Property Search
           </Text>
         </View>
@@ -133,8 +129,6 @@ const PropertyListingFilterHeader = () => {
             gap: 16,
             borderRadius: 8,
           }}
-          lightColor={Colors.light.background}
-          darkColor={Colors.dark.background}
         >
           <TextInput
             style={[
@@ -201,13 +195,7 @@ const PropertyListingFilterHeader = () => {
                   justifyContent: "space-between",
                 }}
               >
-                <Text
-                  style={{ fontFamily: "Montserrat", fontSize: 16 }}
-                  lightColor={Colors.light.text}
-                  darkColor={Colors.dark.text}
-                >
-                  Bedrooms
-                </Text>
+                <Text fontSize={16}>Bedrooms</Text>
                 <View
                   style={{
                     gap: 14,
@@ -238,17 +226,11 @@ const PropertyListingFilterHeader = () => {
                       })
                     }
                   >
-                    <Ionicons
-                      name="add"
-                      size={24}
-                      lightColor={Colors.light.text}
-                      darkColor={Colors.dark.text}
-                    />
+                    <Ionicons name="add" size={24} />
                   </TouchableOpacity>
                   <Text
+                    fontSize={16}
                     style={{
-                      fontFamily: "Montserrat",
-                      fontSize: 16,
                       textAlign: "center",
                       width: 20,
                     }}
@@ -297,16 +279,7 @@ const PropertyListingFilterHeader = () => {
                   justifyContent: "space-between",
                 }}
               >
-                <Text
-                  style={{
-                    fontFamily: "Montserrat",
-                    fontSize: 16,
-                  }}
-                  lightColor={Colors.light.text}
-                  darkColor={Colors.dark.text}
-                >
-                  Bathrooms
-                </Text>
+                <Text fontSize={16}>Bathrooms</Text>
                 <View
                   style={{
                     gap: 14,
@@ -345,14 +318,11 @@ const PropertyListingFilterHeader = () => {
                     />
                   </TouchableOpacity>
                   <Text
+                    fontSize={16}
                     style={{
-                      fontFamily: "Montserrat",
-                      fontSize: 16,
                       textAlign: "center",
                       width: 20,
                     }}
-                    lightColor={Colors.light.text}
-                    darkColor={Colors.dark.text}
                   >
                     {state.bathrooms}
                   </Text>
@@ -404,13 +374,7 @@ const PropertyListingFilterHeader = () => {
             activeOpacity={0.75}
             onPress={onSubmitPropertyListingFilter}
           >
-            <Text
-              style={defaultStyle.btnText}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
-              Submit
-            </Text>
+            <Text style={defaultStyle.btnText}>Submit</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

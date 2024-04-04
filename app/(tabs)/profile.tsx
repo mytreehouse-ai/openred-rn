@@ -64,8 +64,6 @@ const Profile = () => {
                   : Colors.dark.background,
             },
           ]}
-          lightColor={Colors.light.background}
-          darkColor={Colors.dark.background}
         >
           <View
             style={{ position: "relative", backgroundColor: "transparent" }}
@@ -79,18 +77,10 @@ const Profile = () => {
             </TouchableOpacity>
           </View>
           <View style={{ flexDirection: "row", gap: 2 }}>
-            <Text
-              style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
+            <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}>
               {user?.firstName}
             </Text>
-            <Text
-              style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
+            <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}>
               {user?.lastName}
             </Text>
           </View>
@@ -99,11 +89,7 @@ const Profile = () => {
               onPress={async () => await signOut()}
               activeOpacity={0.8}
             >
-              <Text
-                style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}
-                lightColor={Colors.light.text}
-                darkColor={Colors.dark.text}
-              >
+              <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}>
                 Logout
               </Text>
             </TouchableOpacity>
@@ -112,11 +98,7 @@ const Profile = () => {
       ) : (
         <Link href="/(modals)/login" asChild>
           <TouchableOpacity activeOpacity={0.75}>
-            <Text
-              style={{ fontFamily: "Montserrat", fontSize: 16 }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
+            <Text style={{ fontFamily: "Montserrat", fontSize: 16 }}>
               Login
             </Text>
           </TouchableOpacity>

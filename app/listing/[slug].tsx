@@ -1,5 +1,11 @@
 import PropertyListingDescription from "@/components/PropertyListingDescription";
-import { AnimatedView, Ionicons, Text, View } from "@/components/Themed";
+import {
+  AnimatedView,
+  Ionicons,
+  Text,
+  ThemedTouchableOpacity,
+  View,
+} from "@/components/Themed";
 import Colors from "@/constants/Colors";
 import { defaultStyle } from "@/constants/Styles";
 import { useColorScheme } from "@/hooks/useColorScheme";
@@ -132,12 +138,7 @@ const PropertyListing = () => {
           style={[styles.image, imageAnimatedStyle]}
         />
         <View style={{ padding: 16, gap: 14 }}>
-          <Text
-            style={{
-              fontFamily: "MontserratBold",
-              fontSize: 18,
-            }}
-          >
+          <Text weight="bold" style={{ fontSize: 18 }}>
             {propertyListing?.listing_title}
           </Text>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 2 }}>
@@ -147,14 +148,7 @@ const PropertyListing = () => {
               lightColor={Colors.light.primary}
               darkColor={Colors.dark.primary}
             />
-            <Text
-              style={{
-                fontFamily: "MontserratSemiBold",
-                fontSize: 16,
-              }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
+            <Text weight="bold" fontSize={16}>
               {propertyListing?.estate.address ||
                 propertyListing?.estate.city.name}
             </Text>
@@ -186,36 +180,25 @@ const PropertyListing = () => {
               gap: 5,
             }}
           >
-            <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 18 }}>
+            <Text weight="semiBold" fontSize={18}>
               {propertyListing?.price_formatted}
             </Text>
             <View style={{ alignSelf: "flex-start" }}>
-              <Text
-                style={{
-                  fontFamily: "MontserratSemiBold",
-                  fontSize: 16,
-                }}
-                lightColor={Colors.light.text}
-                darkColor={Colors.dark.text}
-              >
+              <Text weight="semiBold" fontSize={16}>
                 {propertyListing?.listing_type.description}
               </Text>
             </View>
           </View>
-          <TouchableOpacity
+          <ThemedTouchableOpacity
             style={[
               defaultStyle.btn,
               {
                 paddingHorizontal: 20,
-                backgroundColor:
-                  colorScheme === "light"
-                    ? Colors.light.primary
-                    : Colors.dark.primary,
               },
             ]}
           >
             <Text style={defaultStyle.btnText}>Inquire now</Text>
-          </TouchableOpacity>
+          </ThemedTouchableOpacity>
         </View>
       </AnimatedView>
     </View>
@@ -228,8 +211,6 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 100,
-    borderBottomColor: Colors.common.gray["500"],
-    borderWidth: StyleSheet.hairlineWidth,
   },
   image: {
     height: IMAGE_HEIGHT,
