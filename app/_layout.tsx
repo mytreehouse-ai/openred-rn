@@ -1,3 +1,4 @@
+import PropertyListingFilterHeader from "@/components/PropertyListingFilterHeader";
 import { Ionicons } from "@/components/Themed";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
@@ -143,15 +144,8 @@ function RootLayoutNav() {
           options={{
             presentation: "transparentModal",
             animation: "fade",
-            title: "Booking",
-            headerTitleStyle: {
-              fontFamily: "MontserratSemiBold",
-            },
-            headerLeft: () => (
-              <TouchableOpacity onPress={() => router.back()}>
-                <Ionicons name="close-outline" size={28} />
-              </TouchableOpacity>
-            ),
+            headerTransparent: true,
+            header: () => <PropertyListingFilterHeader />,
           }}
         />
       </Stack>

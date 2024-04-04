@@ -22,13 +22,21 @@ module.exports = {
     },
     assetBundlePatterns: ["**/*"],
     ios: {
-      supportsTablet: true,
+      bundleIdentifier: "openred",
+      supportsTablet: false,
     },
     android: {
       adaptiveIcon: {
+        package: "com.openred",
         foregroundImage: "./assets/images/adaptive-icon.png",
         backgroundColor: "#ffffff",
       },
+    },
+    updates: {
+      url: "https://u.expo.dev/62cce75b-0345-4c66-b8a6-7803734ced0e",
+    },
+    runtimeVersion: {
+      policy: "appVersion",
     },
     web: {
       bundler: "metro",
