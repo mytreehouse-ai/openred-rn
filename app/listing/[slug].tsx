@@ -125,9 +125,9 @@ const PropertyListing = () => {
         scrollEventThrottle={16}
       >
         <Animated.Image
+          defaultSource={{ uri: PROPERTY_IMAGE_PLACEHOLDER }}
           source={{
-            uri:
-              propertyListing?.estate.image_url ?? PROPERTY_IMAGE_PLACEHOLDER,
+            uri: propertyListing?.estate.image_url!,
           }}
           style={[styles.image, imageAnimatedStyle]}
         />

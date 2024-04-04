@@ -1,3 +1,4 @@
+import defaultProfilePicture from "@/assets/images/person.png";
 import { Text, View } from "@/components/Themed";
 import Colors from "@/constants/Colors";
 import { defaultStyle } from "@/constants/Styles";
@@ -66,6 +67,7 @@ const Profile = () => {
           >
             <TouchableOpacity onPress={onPickImage} activeOpacity={0.75}>
               <Image
+                defaultSource={defaultProfilePicture}
                 source={{
                   uri: user?.imageUrl,
                 }}
