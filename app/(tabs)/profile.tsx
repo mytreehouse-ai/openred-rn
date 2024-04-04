@@ -57,6 +57,11 @@ const Profile = () => {
                 colorScheme === "light"
                   ? Colors.light.border
                   : Colors.dark.border,
+              // Setting a background color to improve shadow efficiency
+              backgroundColor:
+                colorScheme === "light"
+                  ? Colors.light.background
+                  : Colors.dark.background,
             },
           ]}
           lightColor={Colors.light.background}
@@ -68,9 +73,7 @@ const Profile = () => {
             <TouchableOpacity onPress={onPickImage} activeOpacity={0.75}>
               <Image
                 defaultSource={defaultProfilePicture}
-                source={{
-                  uri: user?.imageUrl,
-                }}
+                source={{ uri: user?.imageUrl }}
                 style={styles.image}
               />
             </TouchableOpacity>
@@ -146,6 +149,7 @@ const styles = StyleSheet.create({
       width: 0.5,
       height: 0.5,
     },
+    // Removed backgroundColor from here and applied it directly to the View component to improve shadow efficiency
   },
 });
 

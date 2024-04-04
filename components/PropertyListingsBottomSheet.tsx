@@ -43,7 +43,7 @@ const PropertyListingsBottomSheet: React.FC<
           colorScheme === "light" ? Colors.light.primary : Colors.dark.primary,
       }}
       backgroundStyle={{ backgroundColor: backgroundColor }}
-      style={styles.sheetContainer}
+      style={[styles.sheetContainer, { backgroundColor: backgroundColor }]}
     >
       <PropertyListings propertyListingsQuery={propertyListingsQuery} />
       <View style={styles.absoluteBtn}>

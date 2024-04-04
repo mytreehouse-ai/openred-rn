@@ -1,8 +1,8 @@
-import Constants from "expo-constants";
 import { ApiBaseResponse } from "@/interfaces/apiBaseResponse";
 import { Listing } from "@/interfaces/listing";
 import { PropertyListingFilters } from "@/interfaces/propertyListingFilters";
 import { filterParams } from "@/utils/filterParams";
+import Constants from "expo-constants";
 
 export async function fetchPropertyListings(
   params?: Partial<PropertyListingFilters>

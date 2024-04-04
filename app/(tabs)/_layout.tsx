@@ -4,15 +4,16 @@ import { useClientOnlyValue } from "@/hooks/useClientOnlyValue";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { Tabs } from "expo-router";
 import React from "react";
+import { StyleSheet } from "react-native";
 
-export default function TabLayout() {
+function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        tabBarInactiveTintColor: Colors[colorScheme ?? "light"].tabIconDefault, // Default color for icons
+        tabBarInactiveTintColor: Colors[colorScheme ?? "light"].tabIconDefault,
         tabBarLabelStyle: {
           fontFamily: "MontserratSemiBold",
           fontSize: 14,
@@ -27,7 +28,12 @@ export default function TabLayout() {
         options={{
           title: "Explore",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search-outline" color={color} size={size} />
+            <Ionicons
+              style={styles.icon}
+              name="search-outline"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
@@ -45,7 +51,12 @@ export default function TabLayout() {
         options={{
           title: "AI Chat",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="chatbox-outline" color={color} size={size} />
+            <Ionicons
+              style={styles.icon}
+              name="chatbox-outline"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
@@ -54,7 +65,12 @@ export default function TabLayout() {
         options={{
           title: "Wishlist",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="heart-outline" color={color} size={size} />
+            <Ionicons
+              style={styles.icon}
+              name="heart-outline"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
@@ -63,10 +79,23 @@ export default function TabLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-circle-outline" color={color} size={size} />
+            <Ionicons
+              style={styles.icon}
+              name="person-circle-outline"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  icon: {
+    marginBottom: -3,
+  },
+});
+
+export default TabLayout;

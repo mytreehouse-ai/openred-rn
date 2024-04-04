@@ -59,7 +59,7 @@ export function Ionicons({
   );
   return (
     <DefaultIonicons
-      style={[{ marginBottom: -3 }, style]}
+      style={style}
       name={name}
       color={color ?? defaultColor}
       size={size}
