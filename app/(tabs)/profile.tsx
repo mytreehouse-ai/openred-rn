@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
       width: 0.5,
       height: 0.5,
     },
-    // Removed backgroundColor from here and applied it directly to the View component to improve shadow efficiency
   },
 });
 
