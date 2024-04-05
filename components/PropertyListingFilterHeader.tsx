@@ -92,6 +92,18 @@ const PropertyListingFilterHeader = () => {
   }, []);
 
   function onSubmitPropertyListingFilter() {
+    function getSqmParam(property_type: string, isMin: boolean) {
+      const sizeType = isMin ? "min" : "max";
+      switch (property_type) {
+        case "Warehouse":
+          return `building_size_${sizeType}`;
+        case "Land":
+          return `lot_size_${sizeType}`;
+        default:
+          return `floor_size_${sizeType}`;
+      }
+    }
+
     store.updateFilters({
       search: state.search,
       listing_type: state.listingType,
@@ -99,6 +111,8 @@ const PropertyListingFilterHeader = () => {
       num_bedrooms_max: state.bedrooms,
       num_bedrooms_min: state.bathrooms,
       num_bathrooms_max: state.bathrooms,
+      [getSqmParam(store.filters.property_type!, true)]: state.minSqm,
+      [getSqmParam(store.filters.property_type!, false)]: state.maxSqm,
     });
 
     router.back();
@@ -376,15 +390,11 @@ const PropertyListingFilterHeader = () => {
           <Slider
             style={{ width: "100%", height: 20 }}
             minimumValue={0}
-            maximumValue={state.maxSqm}
+            maximumValue={5000}
             value={state.minSqm}
             onValueChange={(value) => {
               const newValue = Math.floor(value);
               dispatch({ type: "SET_MIN_SQM", payload: newValue });
-              if (newValue > state.maxSqm) {
-                // Ensure minSqm does not exceed maxSqm
-                dispatch({ type: "SET_MAX_SQM", payload: newValue });
-              }
             }}
             minimumTrackTintColor={
               colorScheme === "light" ? Colors.light.border : Colors.dark.border
@@ -403,12 +413,7 @@ const PropertyListingFilterHeader = () => {
             value={state.maxSqm}
             onValueChange={(value) => {
               const newValue = Math.floor(value);
-              if (newValue < state.minSqm) {
-                // Ensure maxSqm does not fall below minSqm
-                dispatch({ type: "SET_MIN_SQM", payload: newValue });
-              } else {
-                dispatch({ type: "SET_MAX_SQM", payload: newValue });
-              }
+              dispatch({ type: "SET_MAX_SQM", payload: newValue });
             }}
             minimumTrackTintColor={
               colorScheme === "light" ? Colors.light.border : Colors.dark.border
