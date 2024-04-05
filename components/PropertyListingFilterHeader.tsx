@@ -91,19 +91,19 @@ const PropertyListingFilterHeader = () => {
     }
   }, []);
 
-  function onSubmitPropertyListingFilter() {
-    function getSqmParam(property_type: string, isMin: boolean) {
-      const sizeType = isMin ? "min" : "max";
-      switch (property_type) {
-        case "Warehouse":
-          return `building_size_${sizeType}`;
-        case "Land":
-          return `lot_size_${sizeType}`;
-        default:
-          return `floor_size_${sizeType}`;
-      }
+  function getSqmParam(property_type: string, isMin: boolean) {
+    const sizeType = isMin ? "min" : "max";
+    switch (property_type) {
+      case "Warehouse":
+        return `building_size_${sizeType}`;
+      case "Land":
+        return `lot_size_${sizeType}`;
+      default:
+        return `floor_size_${sizeType}`;
     }
+  }
 
+  function onSubmitPropertyListingFilter() {
     store.updateFilters({
       search: state.search,
       listing_type: state.listingType,
@@ -386,7 +386,40 @@ const PropertyListingFilterHeader = () => {
               </View>
             </Fragment>
           )}
-          <Text fontSize={16}>{state.minSqm}</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 10,
+              alignItems: "center",
+            }}
+          >
+            <Text fontSize={16}>Min sqm</Text>
+            <View
+              style={{
+                alignItems: "center",
+                padding: 5,
+                borderRadius: 5,
+                flexDirection: "row",
+                gap: 5,
+              }}
+              lightColor={Colors.light.primary}
+              darkColor={Colors.dark.primary}
+            >
+              <Ionicons
+                name="expand-outline"
+                size={20}
+                color={Colors.common.white}
+              />
+              <Text
+                fontSize={16}
+                style={{
+                  color: Colors.common.white,
+                }}
+              >
+                {state.minSqm}
+              </Text>
+            </View>
+          </View>
           <Slider
             style={{ width: "100%" }}
             minimumValue={0}
@@ -409,7 +442,40 @@ const PropertyListingFilterHeader = () => {
                 : Colors.dark.primary
             }
           />
-          <Text fontSize={16}>{`${state.minSqm} - ${state.maxSqm}`}</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 8,
+              alignItems: "center",
+            }}
+          >
+            <Text fontSize={16}>Max sqm</Text>
+            <View
+              style={{
+                alignItems: "center",
+                padding: 5,
+                borderRadius: 5,
+                flexDirection: "row",
+                gap: 5,
+              }}
+              lightColor={Colors.light.primary}
+              darkColor={Colors.dark.primary}
+            >
+              <Ionicons
+                name="expand-outline"
+                size={20}
+                color={Colors.common.white}
+              />
+              <Text
+                fontSize={16}
+                style={{
+                  color: Colors.common.white,
+                }}
+              >
+                {state.maxSqm}
+              </Text>
+            </View>
+          </View>
           <Slider
             style={{ width: "100%" }}
             minimumValue={state.minSqm}
