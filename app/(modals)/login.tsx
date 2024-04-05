@@ -114,13 +114,7 @@ const Login = () => {
             size={24}
             style={defaultStyle.btnIconLeft}
           />
-          <Text
-            style={defaultStyle.btnOutlineText}
-            lightColor={Colors.light.text}
-            darkColor={Colors.dark.text}
-          >
-            Continue With Google
-          </Text>
+          <Text style={defaultStyle.btnOutlineText}>Continue With Google</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[defaultStyle.btnOutline]}
@@ -131,13 +125,7 @@ const Login = () => {
             size={24}
             style={defaultStyle.btnIconLeft}
           />
-          <Text
-            style={defaultStyle.btnOutlineText}
-            lightColor={Colors.light.text}
-            darkColor={Colors.dark.text}
-          >
-            Continue With Apple
-          </Text>
+          <Text style={defaultStyle.btnOutlineText}>Continue With Apple</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={defaultStyle.btnOutline}
@@ -148,11 +136,7 @@ const Login = () => {
             size={24}
             style={defaultStyle.btnIconLeft}
           />
-          <Text
-            style={defaultStyle.btnOutlineText}
-            lightColor={Colors.light.text}
-            darkColor={Colors.dark.text}
-          >
+          <Text style={defaultStyle.btnOutlineText}>
             Continue With Facebook
           </Text>
         </TouchableOpacity>

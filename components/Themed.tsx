@@ -8,6 +8,7 @@ import DefaultIonicons from "@expo/vector-icons/Ionicons";
 import {
   SafeAreaView as DefaultSafeAreaView,
   Text as DefaultText,
+  TouchableOpacity as DefaultTouchableOpacity,
   View as DefaultView,
 } from "react-native";
 import Animated, { AnimatedProps } from "react-native-reanimated";
@@ -25,11 +26,18 @@ interface IoniconsBaseProps {
   size?: number;
 }
 
-export type TextProps = ThemeProps & DefaultText["props"];
+interface TextExtraProps {
+  weight?: "primary" | "semiBold" | "bold";
+  fontSize?: number;
+}
+
+export type TextProps = ThemeProps & TextExtraProps & DefaultText["props"];
 export type ViewProps = ThemeProps & DefaultView["props"];
 export type AnimatedViewProps = ThemeProps & AnimatedProps<ViewProps>;
 export type SafeAreaViewProps = ThemeProps & DefaultSafeAreaView["props"];
 export type IoniconsProps = ThemeProps & IoniconsBaseProps;
+export type TouchableOpacityProps = ThemeProps &
+  DefaultTouchableOpacity["props"];
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -50,8 +58,8 @@ export function Ionicons({
   style,
   color,
   size,
-  lightColor,
-  darkColor,
+  lightColor = Colors.light.text,
+  darkColor = Colors.dark.text,
 }: IoniconsProps) {
   const defaultColor = useThemeColor(
     { light: lightColor, dark: darkColor },
@@ -59,7 +67,7 @@ export function Ionicons({
   );
   return (
     <DefaultIonicons
-      style={[{ marginBottom: -3 }, style]}
+      style={style}
       name={name}
       color={color ?? defaultColor}
       size={size}
@@ -68,14 +76,40 @@ export function Ionicons({
 }
 
 export function Text(props: TextProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
+  const {
+    style,
+    weight = "primary",
+    fontSize = 14,
+    lightColor = Colors.light.text,
+    darkColor = Colors.dark.text,
+    ...otherProps
+  } = props;
+
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
 
-  return <DefaultText style={[{ color }, style]} {...otherProps} />;
+  let fontFamily = "Montserrat";
+
+  if (weight === "semiBold") {
+    fontFamily = "MontserratSemiBold";
+  } else if (weight === "bold") {
+    fontFamily = "MontserratBold";
+  }
+
+  return (
+    <DefaultText
+      style={[{ color, fontSize, fontFamily }, style]}
+      {...otherProps}
+    />
+  );
 }
 
 export function View(props: ViewProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
+  const {
+    style,
+    lightColor = Colors.light.background,
+    darkColor = Colors.dark.background,
+    ...otherProps
+  } = props;
   const backgroundColor = useThemeColor(
     { light: lightColor, dark: darkColor },
     "background"
@@ -85,7 +119,12 @@ export function View(props: ViewProps) {
 }
 
 export function AnimatedView(props: AnimatedViewProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
+  const {
+    style,
+    lightColor = Colors.light.background,
+    darkColor = Colors.dark.background,
+    ...otherProps
+  } = props;
   const backgroundColor = useThemeColor(
     { light: lightColor, dark: darkColor },
     "background"
@@ -95,7 +134,12 @@ export function AnimatedView(props: AnimatedViewProps) {
 }
 
 export const SafeAreaView = (props: SafeAreaViewProps) => {
-  const { style, lightColor, darkColor, ...otherProps } = props;
+  const {
+    style,
+    lightColor = Colors.light.background,
+    darkColor = Colors.dark.background,
+    ...otherProps
+  } = props;
   const backgroundColor = useThemeColor(
     { light: lightColor, dark: darkColor },
     "background"
@@ -103,5 +147,25 @@ export const SafeAreaView = (props: SafeAreaViewProps) => {
 
   return (
     <DefaultSafeAreaView style={[{ backgroundColor }, style]} {...otherProps} />
+  );
+};
+
+export const ThemedTouchableOpacity = (props: TouchableOpacityProps) => {
+  const {
+    style,
+    lightColor = Colors.light.primary,
+    darkColor = Colors.dark.primary,
+    ...otherProps
+  } = props;
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "background"
+  );
+
+  return (
+    <DefaultTouchableOpacity
+      style={[{ backgroundColor }, style]}
+      {...otherProps}
+    />
   );
 };

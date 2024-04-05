@@ -10,7 +10,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Explore = () => {
   const store = globalStateStore();
-
   const propertyListingsQuery = usePropertyListingsInfiniteQuery(store.filters);
 
   const onDataChange = (propertyType: string) => {

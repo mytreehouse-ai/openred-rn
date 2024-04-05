@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import Colors from "./Colors";
 
 export const defaultStyle = StyleSheet.create({
   container: {
@@ -52,7 +51,5 @@ export const defaultStyle = StyleSheet.create({
     right: 0,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderTopColor: Colors.common.gray["200"],
-    borderTopWidth: StyleSheet.hairlineWidth,
   },
 });

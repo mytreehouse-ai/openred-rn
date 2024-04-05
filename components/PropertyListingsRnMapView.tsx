@@ -8,7 +8,6 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { ActivityIndicator, Platform, StyleSheet } from "react-native";
 import MapView from "react-native-map-clustering";
-import { PROVIDER_GOOGLE } from "react-native-maps";
 import CustomMapMarker from "./CustomMapMarker";
 import { View } from "./Themed";
 
@@ -39,7 +38,6 @@ const PropertyListingsRnMapView = ({
         animationEnabled={false}
         loadingEnabled={Platform.OS === "android" ? true : false}
         style={StyleSheet.absoluteFill}
-        provider={PROVIDER_GOOGLE}
         zoomEnabled={true}
         zoomTapEnabled={false}
         showsUserLocation={true}

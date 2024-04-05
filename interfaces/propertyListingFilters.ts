@@ -1,13 +1,13 @@
 interface PropertyListingBaseFilter {
   search: string;
-  ordering: string;
+  ordering: string | null;
   page: number;
   page_size: number;
 }
 
 export interface PropertyListingFilters extends PropertyListingBaseFilter {
-  property_type: string;
-  listing_type: string;
+  property_type: string | null;
+  listing_type: string | null;
   property_status: number;
   price_min: number;
   price_max: number;
@@ -23,8 +23,8 @@ export interface PropertyListingFilters extends PropertyListingBaseFilter {
   num_bathrooms_max: number;
   num_carspaces_min: number;
   num_carspaces_max: number;
-  location: string;
-  indoor_features: string;
-  outdoor_features: string;
-  other_features: string;
+  location: string | null;
+  indoor_features: string | null;
+  outdoor_features: string | null;
+  other_features: string | null;
 }

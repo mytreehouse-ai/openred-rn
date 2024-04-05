@@ -1,3 +1,4 @@
+import defaultProfilePicture from "@/assets/images/person.png";
 import { Text, View } from "@/components/Themed";
 import Colors from "@/constants/Colors";
 import { defaultStyle } from "@/constants/Styles";
@@ -22,7 +23,6 @@ const Profile = () => {
         quality: 0.75,
         base64: true,
       });
-
       if (!imagePicker.canceled && user) {
         const base64Image = `data:image/jpeg;base64,${imagePicker.assets[0].base64}`;
         await user.setProfileImage({
@@ -56,36 +56,29 @@ const Profile = () => {
                 colorScheme === "light"
                   ? Colors.light.border
                   : Colors.dark.border,
+              backgroundColor:
+                colorScheme === "light"
+                  ? Colors.light.background
+                  : Colors.dark.background,
             },
           ]}
-          lightColor={Colors.light.background}
-          darkColor={Colors.dark.background}
         >
           <View
             style={{ position: "relative", backgroundColor: "transparent" }}
           >
             <TouchableOpacity onPress={onPickImage} activeOpacity={0.75}>
               <Image
-                source={{
-                  uri: user?.imageUrl,
-                }}
+                defaultSource={defaultProfilePicture}
+                source={{ uri: user?.imageUrl }}
                 style={styles.image}
               />
             </TouchableOpacity>
           </View>
           <View style={{ flexDirection: "row", gap: 2 }}>
-            <Text
-              style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
+            <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}>
               {user?.firstName}
             </Text>
-            <Text
-              style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
+            <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}>
               {user?.lastName}
             </Text>
           </View>
@@ -94,11 +87,7 @@ const Profile = () => {
               onPress={async () => await signOut()}
               activeOpacity={0.8}
             >
-              <Text
-                style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}
-                lightColor={Colors.light.text}
-                darkColor={Colors.dark.text}
-              >
+              <Text style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}>
                 Logout
               </Text>
             </TouchableOpacity>
@@ -107,11 +96,7 @@ const Profile = () => {
       ) : (
         <Link href="/(modals)/login" asChild>
           <TouchableOpacity activeOpacity={0.75}>
-            <Text
-              style={{ fontFamily: "Montserrat", fontSize: 16 }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
+            <Text style={{ fontFamily: "Montserrat", fontSize: 16 }}>
               Login
             </Text>
           </TouchableOpacity>

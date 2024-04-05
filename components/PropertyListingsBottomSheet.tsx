@@ -43,7 +43,7 @@ const PropertyListingsBottomSheet: React.FC<
           colorScheme === "light" ? Colors.light.primary : Colors.dark.primary,
       }}
       backgroundStyle={{ backgroundColor: backgroundColor }}
-      style={styles.sheetContainer}
+      style={[styles.sheetContainer, { backgroundColor: backgroundColor }]}
     >
       <PropertyListings propertyListingsQuery={propertyListingsQuery} />
       <View style={styles.absoluteBtn}>
@@ -60,11 +60,7 @@ const PropertyListingsBottomSheet: React.FC<
           activeOpacity={0.85}
           onPress={handleOnCollapse}
         >
-          <Text
-            style={{ fontFamily: "MontserratSemiBold", fontSize: 16 }}
-            lightColor={Colors.light.text}
-            darkColor={Colors.dark.text}
-          >
+          <Text weight="semiBold" fontSize={16}>
             Map
           </Text>
           <Ionicons name="map-outline" size={26} />

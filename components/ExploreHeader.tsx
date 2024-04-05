@@ -1,10 +1,11 @@
 import { propertyTypes } from "@/assets/data/propertyTypes";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import globalStateStore from "@/store";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Platform,
   ScrollView,
@@ -24,6 +25,18 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
   const scrollViewRef = useRef<ScrollView>(null);
   const propertyTypesItemRef = useRef<Array<TouchableOpacity | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const store = globalStateStore();
+
+  useEffect(() => {
+    store.updateFilters({
+      search: "",
+      listing_type: null,
+      num_bedrooms_min: 0,
+      num_bedrooms_max: 0,
+      num_bathrooms_min: 0,
+      num_bathrooms_max: 0,
+    });
+  }, [activeIndex]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -51,25 +64,11 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
           onPress={() => router.push("/(modals)/booking")}
         >
           <Ionicons name="search-outline" size={30} />
-          <View
-            style={{
-              backgroundColor: "transparent",
-            }}
-          >
-            <Text
-              style={{ fontFamily: "MontserratSemiBold" }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
-              Where to?
+          <View style={{ backgroundColor: "transparent" }}>
+            <Text weight="semiBold" fontSize={14}>
+              Looking for a specific property?
             </Text>
-            <Text
-              style={{ fontFamily: "Montserrat" }}
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
-              Any where, Any week!
-            </Text>
+            <Text>Customize your search!</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -160,17 +159,7 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
                   : Colors.light.tabIconDefault
               }
             />
-            <Text
-              style={
-                activeIndex === index
-                  ? styles.propertyTypeItemTextActive
-                  : styles.propertyTypeItemText
-              }
-              lightColor={Colors.light.text}
-              darkColor={Colors.dark.text}
-            >
-              {property.name}
-            </Text>
+            <Text weight="semiBold">{property.name}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -194,6 +183,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderRadius: 24,
+    backgroundColor: "transparent",
   },
   searchBtn: {
     flex: 1,
@@ -203,6 +193,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 30,
     padding: 14,
+    backgroundColor: "transparent",
   },
   btnShadow: {
     elevation: 2,
@@ -212,14 +203,6 @@ const styles = StyleSheet.create({
       width: 1,
       height: 1,
     },
-  },
-  propertyTypeItemText: {
-    fontFamily: "MontserratSemiBold",
-    fontSize: 14,
-  },
-  propertyTypeItemTextActive: {
-    fontFamily: "MontserratSemiBold",
-    fontSize: 14,
   },
   propertyTypesBtn: {
     alignItems: "center",
