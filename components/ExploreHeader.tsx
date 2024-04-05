@@ -28,6 +28,7 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
   const store = globalStateStore();
 
   useEffect(() => {
+    // TODO: Reset the filters on property type change
     store.updateFilters({
       search: "",
       listing_type: null,
@@ -35,6 +36,12 @@ const ExploreHeader = ({ onPropertyTypeChange }: ExploreHeaderProps) => {
       num_bedrooms_max: 0,
       num_bathrooms_min: 0,
       num_bathrooms_max: 0,
+      floor_size_min: 0,
+      floor_size_max: 0,
+      building_size_min: 0,
+      building_size_max: 0,
+      lot_size_min: 0,
+      lot_size_max: 0,
     });
   }, [activeIndex]);
 

@@ -5,7 +5,7 @@ import globalStateStore from "@/store";
 import { AntDesign } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
 import { useRouter } from "expo-router";
-import React, { Fragment, useEffect, useReducer } from "react";
+import React, { Fragment, useReducer } from "react";
 import {
   Dimensions,
   Platform,
@@ -69,27 +69,6 @@ const PropertyListingFilterHeader = () => {
   const store = globalStateStore();
   const colorScheme = useColorScheme();
   const [state, dispatch] = useReducer(filterReducer, initialState);
-
-  useEffect(() => {
-    if (store.filters) {
-      dispatch({
-        type: "SET_SEARCH",
-        payload: store.filters.search ?? "",
-      });
-      dispatch({
-        type: "SET_LISTING_TYPE",
-        payload: store.filters.listing_type ?? null,
-      });
-      dispatch({
-        type: "SET_BEDROOMS",
-        payload: store.filters.num_bedrooms_max ?? 0,
-      });
-      dispatch({
-        type: "SET_BATHROOMS",
-        payload: store.filters.num_bathrooms_max ?? 0,
-      });
-    }
-  }, []);
 
   function getSqmParam(property_type: string, isMin: boolean) {
     const sizeType = isMin ? "min" : "max";
