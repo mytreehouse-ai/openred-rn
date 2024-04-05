@@ -23,7 +23,6 @@ const Profile = () => {
         quality: 0.75,
         base64: true,
       });
-
       if (!imagePicker.canceled && user) {
         const base64Image = `data:image/jpeg;base64,${imagePicker.assets[0].base64}`;
         await user.setProfileImage({
@@ -57,7 +56,6 @@ const Profile = () => {
                 colorScheme === "light"
                   ? Colors.light.border
                   : Colors.dark.border,
-              // Setting a background color to improve shadow efficiency
               backgroundColor:
                 colorScheme === "light"
                   ? Colors.light.background
