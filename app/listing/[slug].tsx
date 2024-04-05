@@ -88,18 +88,20 @@ const PropertyListing = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerBackground: () => (
-        <AnimatedView style={[headerAnimatedStyle, styles.header]} />
+        <AnimatedView
+          style={[headerAnimatedStyle, styles.animatedHeaderContainer]}
+        />
       ),
       headerRight: () => (
-        <View style={styles.bar}>
-          <TouchableOpacity style={[styles.barRoundBtn]} onPress={shareListing}>
+        <View style={styles.headerBtnContainer}>
+          <TouchableOpacity style={[styles.roundBtn]} onPress={shareListing}>
             <Ionicons
               name="share-outline"
               size={22}
               color={Colors.common.gray["900"]}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.barRoundBtn]}>
+          <TouchableOpacity style={[styles.roundBtn]}>
             <Ionicons
               name="heart-outline"
               size={22}
@@ -109,10 +111,7 @@ const PropertyListing = () => {
         </View>
       ),
       headerLeft: () => (
-        <TouchableOpacity
-          style={[styles.barRoundBtn]}
-          onPress={navigation.goBack}
-        >
+        <TouchableOpacity style={[styles.roundBtn]} onPress={navigation.goBack}>
           <Ionicons
             name="arrow-back"
             size={22}
@@ -124,7 +123,7 @@ const PropertyListing = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={defaultStyle.container}>
       <Animated.ScrollView
         ref={scrollRef}
         contentContainerStyle={{ paddingBottom: 100 }}
@@ -135,7 +134,7 @@ const PropertyListing = () => {
           source={{
             uri: propertyListing?.estate.image_url!,
           }}
-          style={[styles.image, imageAnimatedStyle]}
+          style={[styles.propertyListingImage, imageAnimatedStyle]}
         />
         <View style={{ padding: 16, gap: 14 }}>
           <Text weight="bold" style={{ fontSize: 18 }}>
@@ -206,30 +205,29 @@ const PropertyListing = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
+  animatedHeaderContainer: {
     height: 100,
   },
-  image: {
+  propertyListingImage: {
     height: IMAGE_HEIGHT,
     width,
   },
-  bar: {
+  headerBtnContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "transparent",
     gap: 10,
   },
-  barRoundBtn: {
+  roundBtn: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    borderColor: Colors.common.gray["500"],
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: Colors.common.white,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: Colors.common.gray["500"],
   },
 });
 

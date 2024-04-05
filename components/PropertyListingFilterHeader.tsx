@@ -3,6 +3,7 @@ import { defaultStyle } from "@/constants/Styles";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import globalStateStore from "@/store";
 import { AntDesign } from "@expo/vector-icons";
+import Slider from "@react-native-community/slider";
 import { useRouter } from "expo-router";
 import React, { Fragment, useEffect, useReducer } from "react";
 import {
@@ -22,19 +23,25 @@ type FilterState = {
   listingType: string | null;
   bedrooms: number;
   bathrooms: number;
+  minSqm: number;
+  maxSqm: number;
 };
 
 type FilterAction =
   | { type: "SET_SEARCH"; payload: string }
   | { type: "SET_LISTING_TYPE"; payload: string | null }
   | { type: "SET_BEDROOMS"; payload: number }
-  | { type: "SET_BATHROOMS"; payload: number };
+  | { type: "SET_BATHROOMS"; payload: number }
+  | { type: "SET_MIN_SQM"; payload: number }
+  | { type: "SET_MAX_SQM"; payload: number };
 
 const initialState: FilterState = {
   search: "",
   listingType: null,
   bedrooms: 0,
   bathrooms: 0,
+  minSqm: 0,
+  maxSqm: 0,
 };
 
 function filterReducer(state: FilterState, action: FilterAction): FilterState {
@@ -47,6 +54,10 @@ function filterReducer(state: FilterState, action: FilterAction): FilterState {
       return { ...state, bedrooms: action.payload };
     case "SET_BATHROOMS":
       return { ...state, bathrooms: action.payload };
+    case "SET_MIN_SQM":
+      return { ...state, minSqm: action.payload };
+    case "SET_MAX_SQM":
+      return { ...state, maxSqm: action.payload };
     default:
       return state;
   }
@@ -361,6 +372,53 @@ const PropertyListingFilterHeader = () => {
               </View>
             </Fragment>
           )}
+          <Text fontSize={16}>{state.minSqm}</Text>
+          <Slider
+            style={{ width: "100%", height: 20 }}
+            minimumValue={0}
+            maximumValue={state.maxSqm}
+            value={state.minSqm}
+            onValueChange={(value) => {
+              const newValue = Math.floor(value);
+              dispatch({ type: "SET_MIN_SQM", payload: newValue });
+              if (newValue > state.maxSqm) {
+                // Ensure minSqm does not exceed maxSqm
+                dispatch({ type: "SET_MAX_SQM", payload: newValue });
+              }
+            }}
+            minimumTrackTintColor={
+              colorScheme === "light" ? Colors.light.border : Colors.dark.border
+            }
+            maximumTrackTintColor={
+              colorScheme === "light"
+                ? Colors.light.primary
+                : Colors.dark.primary
+            }
+          />
+          <Text fontSize={16}>{`${state.minSqm} - ${state.maxSqm}`}</Text>
+          <Slider
+            style={{ width: "100%" }}
+            minimumValue={0}
+            maximumValue={10000}
+            value={state.maxSqm}
+            onValueChange={(value) => {
+              const newValue = Math.floor(value);
+              if (newValue < state.minSqm) {
+                // Ensure maxSqm does not fall below minSqm
+                dispatch({ type: "SET_MIN_SQM", payload: newValue });
+              } else {
+                dispatch({ type: "SET_MAX_SQM", payload: newValue });
+              }
+            }}
+            minimumTrackTintColor={
+              colorScheme === "light" ? Colors.light.border : Colors.dark.border
+            }
+            maximumTrackTintColor={
+              colorScheme === "light"
+                ? Colors.light.primary
+                : Colors.dark.primary
+            }
+          />
           <TouchableOpacity
             style={[
               defaultStyle.btn,
