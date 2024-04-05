@@ -388,13 +388,17 @@ const PropertyListingFilterHeader = () => {
           )}
           <Text fontSize={16}>{state.minSqm}</Text>
           <Slider
-            style={{ width: "100%", height: 20 }}
+            style={{ width: "100%" }}
             minimumValue={0}
             maximumValue={5000}
             value={state.minSqm}
             onValueChange={(value) => {
               const newValue = Math.floor(value);
               dispatch({ type: "SET_MIN_SQM", payload: newValue });
+
+              if (newValue > state.maxSqm) {
+                dispatch({ type: "SET_MAX_SQM", payload: newValue });
+              }
             }}
             minimumTrackTintColor={
               colorScheme === "light" ? Colors.light.border : Colors.dark.border
@@ -408,9 +412,9 @@ const PropertyListingFilterHeader = () => {
           <Text fontSize={16}>{`${state.minSqm} - ${state.maxSqm}`}</Text>
           <Slider
             style={{ width: "100%" }}
-            minimumValue={0}
+            minimumValue={state.minSqm}
             maximumValue={10000}
-            value={state.maxSqm}
+            value={state.maxSqm > state.minSqm ? state.maxSqm : state.minSqm}
             onValueChange={(value) => {
               const newValue = Math.floor(value);
               dispatch({ type: "SET_MAX_SQM", payload: newValue });
