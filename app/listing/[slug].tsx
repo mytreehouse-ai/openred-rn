@@ -226,8 +226,6 @@ const styles = StyleSheet.create({
   barRoundBtn: {
     width: 40,
     height: 40,
-    backgroundColor: Colors.common.white,
-    borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 20,
     borderColor: Colors.common.gray["500"],
     alignItems: "center",
