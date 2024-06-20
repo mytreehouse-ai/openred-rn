@@ -49,7 +49,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.73.6",
-    "react-native-gesture-handler": "~2.14.0",
+    "react-native-gesture-handler": "~2.17.0",
     "react-native-map-clustering": "^3.4.2",
     "react-native-maps": "1.10.0",
     "react-native-markdown-display": "^7.0.2",
